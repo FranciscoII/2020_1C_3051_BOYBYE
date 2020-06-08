@@ -47,13 +47,13 @@ namespace TGC.Group.Model
 
             escenarioLoader = new EscenarioLoader(MediaDir, naveDelJuego);
             tieFighterSpawner = new TieFighterSpawner(MediaDir, naveDelJuego);
-
+            /*
             Obstaculo obstaculo = new Obstaculo(MediaDir, naveDelJuego, new TGCVector3(100, -15, 720));
             GameManager.Instance.AgregarRenderizable(obstaculo);
 
             Skybox skybox = new Skybox(MediaDir, camaraDelJuego);
             GameManager.Instance.AgregarRenderizable(skybox);
-            
+            */
             
             //Cursor.Hide();
 
