@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Collision;
+using TGC.Core.SceneLoader;
 using TGC.Examples.Camara;
 
 namespace TGC.Group.Model
@@ -84,7 +85,11 @@ namespace TGC.Group.Model
         {
             return new List<Destruible>(Renderizables.OfType<Destruible>());
         }
-
+        public Boolean esVisibleParaLaCamara(TgcMesh mesh)
+        {
+            TgcCollisionUtils.FrustumResult result = TgcCollisionUtils.classifyFrustumAABB(this.Frustum, mesh.BoundingBox);
+            return result != TgcCollisionUtils.FrustumResult.OUTSIDE;
+        }
         #region Singleton
 
         private static volatile GameManager instance;

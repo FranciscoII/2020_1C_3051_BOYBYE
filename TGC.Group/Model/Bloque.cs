@@ -68,8 +68,7 @@ namespace TGC.Group.Model
         {
             //Scene.RenderAll();
             Scene.Meshes.ForEach(delegate (TgcMesh mesh) {
-                var result = TgcCollisionUtils.classifyFrustumAABB(GameManager.Instance.Frustum, mesh.BoundingBox);
-                if (result != TgcCollisionUtils.FrustumResult.OUTSIDE)
+                if (GameManager.Instance.esVisibleParaLaCamara(mesh))
                 {
                     mesh.Render();
                 }

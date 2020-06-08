@@ -85,8 +85,11 @@ namespace TGC.Group.Model
 
         public override void Render()
         {
-            mainMesh.Render();
-            mainMesh.BoundingBox.Render();
+            if (GameManager.Instance.esVisibleParaLaCamara(this.mainMesh))
+            {
+                mainMesh.Render();
+                mainMesh.BoundingBox.Render();
+            }
             /*
             TGCVector3 PosicionB = jugador.GetPosicion();
             TGCVector3 DireccionA = new TGCVector3(0, 0, -1);
@@ -111,5 +114,6 @@ namespace TGC.Group.Model
         {
             return mainMesh.BoundingBox;
         }
+
     }
 }
