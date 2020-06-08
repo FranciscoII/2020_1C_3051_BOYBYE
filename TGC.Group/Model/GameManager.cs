@@ -29,7 +29,8 @@ namespace TGC.Group.Model
         }
         public void Render()
         {
-            Renderizables.ForEach(delegate (IRenderizable unRenderizable){ unRenderizable.Render(); } );
+            List<IRenderizable> RenderizablesAuxiliar = new List<IRenderizable>(Renderizables);
+            RenderizablesAuxiliar.ForEach(delegate (IRenderizable unRenderizable){ unRenderizable.Render(); } );
         }
 
         public void Dispose()

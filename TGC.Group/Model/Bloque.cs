@@ -37,6 +37,11 @@ namespace TGC.Group.Model
             TranslationMatrix = TGCMatrix.Translation(posicionInicial);
             instanciarObstaculosMapa();
             instanciarTorretas();
+
+            Scene.Meshes.ForEach(delegate (TgcMesh mesh) {
+                mesh.Transform = ScaleMatrix * TranslationMatrix;
+                mesh.BoundingBox.transform(ScaleMatrix * TranslationMatrix);
+            });
         }
 
         private void instanciarTorretas()
@@ -58,10 +63,10 @@ namespace TGC.Group.Model
 
         public void Update(float elapsedTime)
         {
-            Scene.Meshes.ForEach(delegate (TgcMesh mesh) { 
-                mesh.Transform = ScaleMatrix*TranslationMatrix;
-                mesh.BoundingBox.transform(ScaleMatrix * TranslationMatrix);
-            });
+            /*
+            if (nave.GetPosicion().Z > posicionInicial.Z + 2000f)
+                GameManager.Instance.QuitarRenderizable(this);
+            */
         }
 
         public void Render()

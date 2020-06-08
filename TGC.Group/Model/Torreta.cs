@@ -90,6 +90,8 @@ namespace TGC.Group.Model
                 mainMesh.Render();
                 mainMesh.BoundingBox.Render();
             }
+            else
+                GameManager.Instance.QuitarRenderizable(this);
             /*
             TGCVector3 PosicionB = jugador.GetPosicion();
             TGCVector3 DireccionA = new TGCVector3(0, 0, -1);
