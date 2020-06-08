@@ -91,7 +91,10 @@ namespace TGC.Group.Model
                 mainMesh.BoundingBox.Render();
             }
             else
+            {
                 GameManager.Instance.QuitarRenderizable(this);
+                //Logger.Loggear("Se borro torreta posicionada en Z: " + posicionInicial.Z.ToString());
+            }
             /*
             TGCVector3 PosicionB = jugador.GetPosicion();
             TGCVector3 DireccionA = new TGCVector3(0, 0, -1);
