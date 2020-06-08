@@ -17,7 +17,7 @@ namespace TGC.Group.Model
         public Camara Camara { get; set; }
         public bool Pause { get; set; }
         private float cooldownPausa;
-
+        public TgcFrustum Frustum { get; set; }
         public void Update(float elapsedTime)
         {
             List<IRenderizable> RenderizablesAuxiliar = new List<IRenderizable>(Renderizables);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TGC.Core.Collision;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 
@@ -41,8 +42,8 @@ namespace TGC.Group.Model
         private void instanciarTorretas()
         {
             this.posicionesTorretas.
-                ForEach(delegate (TGCVector3 tor) {
-                    Torreta torreta = new Torreta(mediaDir,tor,nave);
+                ForEach(delegate (TGCVector3 posicion) {
+                    Torreta torreta = new Torreta(mediaDir,posicion,nave);
                     GameManager.Instance.AgregarRenderizable(torreta); 
                 });
         }
@@ -65,8 +66,16 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            Scene.RenderAll();
-            
+            //Scene.RenderAll();
+            Scene.Meshes.ForEach(delegate (TgcMesh mesh) {
+                var result = TgcCollisionUtils.classifyFrustumAABB(GameManager.Instance.Frustum, mesh.BoundingBox);
+                if (result != TgcCollisionUtils.FrustumResult.OUTSIDE)
+                {
+                    mesh.Render();
+                }
+            });
+
+
         }
         public void Dispose()
         {

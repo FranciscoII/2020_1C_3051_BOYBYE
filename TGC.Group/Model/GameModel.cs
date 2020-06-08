@@ -32,6 +32,8 @@ namespace TGC.Group.Model
             //Debe empezar pausado
             GameManager.Instance.PausarJuego();
 
+            GameManager.Instance.Frustum = this.Frustum;
+
             var posicionInicialDeNave = new TGCVector3(105, -15, -250);
 
             input = new InputDelJugador(Input);
