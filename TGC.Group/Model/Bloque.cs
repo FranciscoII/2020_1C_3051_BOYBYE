@@ -20,6 +20,7 @@ namespace TGC.Group.Model
         private String nombreMapa;
         private List<TGCVector3> posicionesTorretas;
         private Nave nave;
+        private List<ObstaculoMapa> listaObstaculos;
 
         public Bloque(string mediaDir, TGCVector3 posicionInicial,String nombreMapa,List<TGCVector3> posiciones,Nave nave)
         {
@@ -28,6 +29,7 @@ namespace TGC.Group.Model
             this.nombreMapa = nombreMapa;
             this.posicionesTorretas = posiciones;
             this.nave = nave;
+            this.listaObstaculos = new List<ObstaculoMapa>();
         }
         public void Init()
         {
@@ -56,17 +58,22 @@ namespace TGC.Group.Model
         {
             for (int i = 3; i < Scene.Meshes.Count; i++)//hardcodeado esto deberia cambiar
             {
-                var obstaculo = new ObstaculoMapa(nave, Scene.Meshes[i]);
+                ObstaculoMapa obstaculo = new ObstaculoMapa(nave, Scene.Meshes[i]);
+                listaObstaculos.Add(obstaculo);
                 GameManager.Instance.AgregarRenderizable(obstaculo);
             }
         }
 
         public void Update(float elapsedTime)
         {
-            /*
-            if (nave.GetPosicion().Z > posicionInicial.Z + 2000f)
+            if (nave.GetPosicion().Z > posicionInicial.Z + 3000f) //este numero deberia corrseponder idealmente al tamaño del bloque
+            {
+                for (int i = 0; i < listaObstaculos.Count; i++)
+                    GameManager.Instance.QuitarRenderizable(listaObstaculos[i]);
+
                 GameManager.Instance.QuitarRenderizable(this);
-            */
+                //Logger.Loggear("Se borro el bloque de posicion: " + this.posicionInicial.ToString() + " nombre: " + this.nombreMapa);
+            }
         }
 
         public void Render()
