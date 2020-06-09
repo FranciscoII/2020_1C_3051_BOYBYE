@@ -74,12 +74,16 @@ namespace TGC.Group.Model
 
             DibujarBarra(PosicionesDeBarraVida(cantidadVida), Color.Red);
             DibujarBarra(PosicionesDeBarraGiro(cantidadGiro), Color.Blue);
+            DibujarMarcos();
+        }
+
+        private void DibujarMarcos()
+        {
             drawer.BeginDrawSprite();
             drawer.DrawSprite(marcoVida);
             drawer.DrawSprite(marcoGiro);
             drawer.EndDrawSprite();
         }
-
         private void DibujarBarra(TGCVector2[] posiciones, Color color)
         {
             Line barra = new Line(D3DDevice.Instance.Device)
