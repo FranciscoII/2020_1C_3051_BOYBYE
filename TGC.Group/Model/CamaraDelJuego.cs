@@ -3,11 +3,11 @@ using TGC.Group.Model;
 
 namespace TGC.Examples.Camara
 {
-    class Camara : TgcThirdPersonCamera
+    class CamaraDelJuego : TgcThirdPersonCamera
     {
         private readonly Nave NaveDelJuego;
 
-        public Camara(TGCVector3 target, float offsetHeight, float offsetForward, Nave nave) : base(target, offsetHeight, offsetForward)
+        public CamaraDelJuego(TGCVector3 target, float offsetHeight, float offsetForward, Nave nave) : base(target, offsetHeight, offsetForward)
         {
             this.NaveDelJuego = nave;
         }

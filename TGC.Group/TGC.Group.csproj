@@ -107,9 +107,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
+    <Compile Include="Model\Meta\Entorno.cs" />
+    <Compile Include="Model\Meta\EntornoJuego.cs" />
+    <Compile Include="Model\Meta\EntornoMenu.cs" />
     <Compile Include="Model\Mundo\Bloque.cs" />
     <Compile Include="Model\Mundo\BloqueBuilder.cs" />
-    <Compile Include="Model\Camara.cs" />
+    <Compile Include="Model\CamaraDelJuego.cs" />
     <Compile Include="Model\Clases2D\HUD.cs" />
     <Compile Include="Model\Clases2D\CustomBitmap.cs" />
     <Compile Include="Model\Clases2D\CustomSprite.cs" />

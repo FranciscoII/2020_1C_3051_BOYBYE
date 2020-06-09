@@ -15,7 +15,7 @@ namespace TGC.Group.Model
     internal class GameManager
     {
         private List<IRenderizable> Renderizables = new List<IRenderizable>();
-        public Camara Camara { get; set; }
+        public CamaraDelJuego Camara { get; set; }
         public bool Pause { get; set; }
         private float cooldownPausa;
         public TgcFrustum Frustum { get; set; }
