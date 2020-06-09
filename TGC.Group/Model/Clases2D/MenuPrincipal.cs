@@ -10,34 +10,24 @@ namespace TGC.Group.Model.Clases2D
 {
     class MenuPrincipal
     {
-        private String MediaDir;
-        private InputDelJugador input;
-        private bool juegoAbiertoPorPrimeraVez;
         private Drawer2D drawer;
         private CustomSprite menuPrincipalSprite;
-        private CustomSprite FlechitaSeleccion;
-        public MenuPrincipal(String mediaDir, InputDelJugador input)
+        public MenuPrincipal(String mediaDir)
         {
-            this.MediaDir = mediaDir;
-            this.input = input;
-            juegoAbiertoPorPrimeraVez = true;
             drawer = new Drawer2D();
-            menuPrincipalSprite = new CustomSprite();
-            menuPrincipalSprite.Bitmap = new CustomBitmap(MediaDir + "InicioMenu.jpg", D3DDevice.Instance.Device);
-            menuPrincipalSprite.Position = new TGCVector2(-290, -150);
+            menuPrincipalSprite = new CustomSprite
+            {
+                Bitmap = new CustomBitmap(mediaDir + "logo.png", D3DDevice.Instance.Device),
+                Position = new TGCVector2(D3DDevice.Instance.Width*0.4f, D3DDevice.Instance.Height*0.05f),
+                Scaling = new TGCVector2(0.5f,1)
+            };
         }
         public void DibujarMenu()
         {
-            if (juegoAbiertoPorPrimeraVez)
-            {
-                juegoAbiertoPorPrimeraVez = !input.HayInputDePausa(); 
-                //Usa el mismo Boton para Pausa y Seleccion menu
-
-                drawer.BeginDrawSprite();
-                drawer.DrawSprite(menuPrincipalSprite);
-                //drawer.DrawSprite(FlechitaSeleccion);
-                drawer.EndDrawSprite();
-            }
+            drawer.BeginDrawSprite();
+            drawer.DrawSprite(menuPrincipalSprite);
+            //drawer.DrawSprite(FlechitaSeleccion);
+            drawer.EndDrawSprite();
         }
 
 

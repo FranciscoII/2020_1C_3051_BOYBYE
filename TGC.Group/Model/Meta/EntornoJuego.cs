@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.Mathematica;
 using TGC.Examples.Camara;
+using TGC.Group.Model.Clases2D;
 
 namespace TGC.Group.Model.Meta
 {
@@ -12,6 +13,7 @@ namespace TGC.Group.Model.Meta
     {
         private EscenarioLoader escenarioLoader;
         private TieFighterSpawner tieFighterSpawner;
+        
 
         public EntornoJuego(GameModel gameModel, string mediaDir, InputDelJugador input) : base(gameModel, mediaDir, input)
         {
@@ -27,9 +29,11 @@ namespace TGC.Group.Model.Meta
             GameManager.Instance.AgregarRenderizable(naveDelJuego);
             CamaraDelJuego camaraDelJuego = new CamaraDelJuego(posicionInicialDeNave, 10, -50, naveDelJuego);
             gameModel.CambiarCamara(camaraDelJuego);
-
+            Skybox skybox = new Skybox(mediaDir, camaraDelJuego);
+            GameManager.Instance.AgregarRenderizable(skybox);
             escenarioLoader = new EscenarioLoader(mediaDir, naveDelJuego);
             tieFighterSpawner = new TieFighterSpawner(mediaDir, naveDelJuego);
+            
         }
 
         public override void Update(float elapsedTime)

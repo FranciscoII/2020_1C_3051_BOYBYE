@@ -30,9 +30,7 @@ namespace TGC.Group.Model
         {
             GameManager.Instance.Frustum = this.Frustum;
             InputDelJugador input = new InputDelJugador(Input);
-            EntornoActual = new EntornoJuego(this,MediaDir,input);
-            EntornoActual.Init();
-            EntornoActual = new EntornoMenu(this, MediaDir, input);
+            EntornoActual = new EntornoMenu(this,MediaDir,input);
             EntornoActual.Init();
         }
 

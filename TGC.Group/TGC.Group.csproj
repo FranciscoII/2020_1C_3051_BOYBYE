@@ -13,7 +13,10 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>C:\Users\Tomas\Desktop\c\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,13 +26,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -67,6 +68,18 @@
   </PropertyGroup>
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>501716AEC9ED51D36187CF89D539B3363BD4578E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>TGC.Group_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BulletSharp, Version=0.11.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -108,6 +121,7 @@
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
     <Compile Include="Model\CamaraDelJuego.cs" />
+    <Compile Include="Model\NaveDeMenu.cs" />
     <Compile Include="Model\Meta\Entorno.cs" />
     <Compile Include="Model\Meta\EntornoJuego.cs" />
     <Compile Include="Model\Meta\EntornoMenu.cs" />
@@ -125,12 +139,12 @@
     <Compile Include="Model\Meta\InputDelJugador.cs" />
     <Compile Include="Model\Mundo\EscenarioLoader.cs" />
     <Compile Include="Model\Laser.cs" />
-    <Compile Include="Model\Nave\LaserDeJugador.cs" />
+    <Compile Include="Model\NaveJugador\LaserDeJugador.cs" />
     <Compile Include="Model\Colisionables\LaserEnemigo.cs" />
-    <Compile Include="Model\Nave\ModeloCompuesto.cs" />
+    <Compile Include="Model\NaveJugador\ModeloCompuesto.cs" />
     <Compile Include="Model\IRenderizable.cs" />
     <Compile Include="Model\Meta\GameManager.cs" />
-    <Compile Include="Model\Nave\Nave.cs" />
+    <Compile Include="Model\NaveJugador\Nave.cs" />
     <Compile Include="Model\Mundo\ObstaculoMapa.cs" />
     <Compile Include="Model\Mundo\Skybox.cs" />
     <Compile Include="Model\Meta\TgcThirdPersonCamera.cs" />
@@ -195,6 +209,7 @@
     <None Include="Shaders\Varios.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TGC.Group_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
