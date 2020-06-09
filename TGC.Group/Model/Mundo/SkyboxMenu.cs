@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace TGC.Group.Model.Mundo
     class SkyboxMenu : IRenderizable
     {
         TgcMesh skySphere;
+        private float giro;
+        private TGCMatrix MatrizEscala;
 
         public SkyboxMenu(string mediaDir, TGCVector3 posicion)
         {
@@ -21,7 +24,8 @@ namespace TGC.Group.Model.Mundo
             TgcScene scene2 = loader.loadSceneFromFile(mediaDir + "Skybox\\skySphere-TgcScene.xml");
             skySphere = scene2.Meshes[0];
             skySphere.Position = posicion;
-            skySphere.Transform = TGCMatrix.Scaling(10f, 10f, 10f);
+            MatrizEscala = TGCMatrix.Scaling(10f, 10f, 10f);
+            this.giro = 0f;
         }
 
         public void Dispose()
@@ -31,7 +35,7 @@ namespace TGC.Group.Model.Mundo
 
         public void Init()
         {
-
+            skySphere.Transform = MatrizEscala;
         }
 
         public void Render()
@@ -41,7 +45,9 @@ namespace TGC.Group.Model.Mundo
 
         public void Update(float elapsedTime)
         {
-            
+            this.giro += elapsedTime * .3f;
+            TGCQuaternion rotationY = TGCQuaternion.RotationAxis(new TGCVector3(0.0f, 1.0f, 0.0f), this.giro);
+            skySphere.Transform = MatrizEscala * TGCMatrix.RotationTGCQuaternion(rotationY);
         }
     }
 }

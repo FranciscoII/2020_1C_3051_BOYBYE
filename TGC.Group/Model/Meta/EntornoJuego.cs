@@ -24,7 +24,7 @@ namespace TGC.Group.Model.Meta
             var posicionInicialDeNave = new TGCVector3(105, -15, -250);
             Nave naveDelJuego = new Nave(mediaDir, posicionInicialDeNave, input);
             //Debe empezar pausado
-            GameManager.Instance.PausarJuego();
+            //GameManager.Instance.PausarJuego();
             
             GameManager.Instance.AgregarRenderizable(naveDelJuego);
             CamaraDelJuego camaraDelJuego = new CamaraDelJuego(posicionInicialDeNave, 10, -50, naveDelJuego);
