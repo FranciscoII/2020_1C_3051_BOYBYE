@@ -23,28 +23,34 @@ namespace TGC.Group.Model
         {
             direccionMarco = mediaDir + "barra.png";
             drawer = new Drawer2D();
-            posicionXBaseDeBarras = Convert.ToInt32(D3DDevice.Instance.Width * 0.02f); //original 0.01f 
+            posicionXBaseDeBarras = Convert.ToInt32(D3DDevice.Instance.Width * 0.015f);
             posicionYBarraVida = Convert.ToInt32(D3DDevice.Instance.Height / 1.35f);
-            posicionYBarraGiro = Convert.ToInt32(D3DDevice.Instance.Height / 1.25f);
+            posicionYBarraGiro = Convert.ToInt32(D3DDevice.Instance.Height / 1.2f);
+
+            int posicionXBaseDeMarcos = Convert.ToInt32(posicionXBaseDeBarras * 0.5f);
+            int posicionYDeMarcoVida = Convert.ToInt32(posicionYBarraVida *0.963f);
 
             marcoVida = new CustomSprite
             {
                 Bitmap = new CustomBitmap(direccionMarco, D3DDevice.Instance.Device)
             };
-            marcoVida.Position = new TGCVector2(posicionXBaseDeBarras, posicionYBarraVida);
-            marcoVida.Scaling = new TGCVector2(D3DDevice.Instance.Width* 0.000390625f, D3DDevice.Instance.Height * 0.00092590476f);
+            marcoVida.Position = new TGCVector2(posicionXBaseDeMarcos, posicionYDeMarcoVida);
+            marcoVida.Scaling = new TGCVector2(D3DDevice.Instance.Width* 0.00035f, D3DDevice.Instance.Height * 0.00092f);
+
+            int posicionYDeMarcoGiro = Convert.ToInt32(posicionYBarraGiro * 0.963f);
 
             marcoGiro = new CustomSprite
             {
                 Bitmap = new CustomBitmap(direccionMarco, D3DDevice.Instance.Device)
             };
 
-            marcoGiro.Position = new TGCVector2(posicionXBaseDeBarras, posicionYBarraGiro);
+            marcoGiro.Position = new TGCVector2(posicionXBaseDeMarcos, posicionYDeMarcoGiro);
+            marcoGiro.Scaling = new TGCVector2(D3DDevice.Instance.Width * 0.00035f, D3DDevice.Instance.Height * 0.00092f);
         }
 
         private TGCVector2[] PosicionesDeBarra(int cantidadBarra, float posicionYBarra)
         {
-            int coeficienteDeLongitudDeBarra = D3DDevice.Instance.Width / 800;
+            float coeficienteDeLongitudDeBarra = D3DDevice.Instance.Width / 600f; //Dejar el numero expresado como float, sino lo redondea a entero
             float longitudBarra = cantidadBarra * coeficienteDeLongitudDeBarra;
 
             TGCVector2 posicionBase = new TGCVector2(posicionXBaseDeBarras, posicionYBarra);
@@ -70,7 +76,7 @@ namespace TGC.Group.Model
             DibujarBarra(PosicionesDeBarraGiro(cantidadGiro), Color.Blue);
             drawer.BeginDrawSprite();
             drawer.DrawSprite(marcoVida);
-            //drawer.DrawSprite(marcoGiro);
+            drawer.DrawSprite(marcoGiro);
             drawer.EndDrawSprite();
         }
 
@@ -79,7 +85,7 @@ namespace TGC.Group.Model
             Line barra = new Line(D3DDevice.Instance.Device)
             {
                 Antialias = true,
-                Width = Convert.ToInt32(0.023f * D3DDevice.Instance.Height),
+                Width = Convert.ToInt32(0.035f * D3DDevice.Instance.Height),
             };
             barra.Draw(TGCVector2.ToVector2Array(posiciones), color);
 
