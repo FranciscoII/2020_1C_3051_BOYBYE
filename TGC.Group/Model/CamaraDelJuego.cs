@@ -20,9 +20,10 @@ namespace TGC.Examples.Camara
         }
 
 
-        public void Update(float elapsedTime)
+        public override void UpdateCamera(float elapsedTime)
         {
             SeguirNaveParaAdelante();
+            base.UpdateCamera(elapsedTime);
         }
     }
 }

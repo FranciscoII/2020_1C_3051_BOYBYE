@@ -32,6 +32,8 @@ namespace TGC.Group.Model
             InputDelJugador input = new InputDelJugador(Input);
             EntornoActual = new EntornoJuego(this,MediaDir,input);
             EntornoActual.Init();
+            EntornoActual = new EntornoMenu(this, MediaDir, input);
+            EntornoActual.Init();
         }
 
         public override void Update()
@@ -45,9 +47,7 @@ namespace TGC.Group.Model
         public override void Render()
         {
             PreRender();
-
             EntornoActual.Render();
-
             PostRender();
         }
 

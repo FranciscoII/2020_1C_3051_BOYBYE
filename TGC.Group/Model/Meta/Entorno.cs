@@ -23,9 +23,10 @@ namespace TGC.Group.Model.Meta
         abstract public void Update(float elapsedTime);
         abstract public void  Render();
         abstract public void Dispose();
-        private void CambiarEntorno(Entorno nuevoEntorno)
+        internal void CambiarEntorno(Entorno nuevoEntorno)
         {
             this.Dispose();
+            nuevoEntorno.Init();
             gameModel.EntornoActual = nuevoEntorno;
         }
 

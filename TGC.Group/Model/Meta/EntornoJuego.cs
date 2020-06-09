@@ -27,7 +27,6 @@ namespace TGC.Group.Model.Meta
             GameManager.Instance.AgregarRenderizable(naveDelJuego);
             CamaraDelJuego camaraDelJuego = new CamaraDelJuego(posicionInicialDeNave, 10, -50, naveDelJuego);
             gameModel.CambiarCamara(camaraDelJuego);
-            GameManager.Instance.Camara = camaraDelJuego;
 
             escenarioLoader = new EscenarioLoader(mediaDir, naveDelJuego);
             tieFighterSpawner = new TieFighterSpawner(mediaDir, naveDelJuego);
