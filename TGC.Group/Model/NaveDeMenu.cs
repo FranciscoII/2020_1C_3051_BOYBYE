@@ -14,10 +14,10 @@ namespace TGC.Group.Model
         private TGCVector3 posicion;
         private float timer; //Mal nombreeee
 
-        public NaveDeMenu(string mediaDir)
+        public NaveDeMenu(string mediaDir, TGCVector3 posicionInicial)
         {
-            this.modeloNave = new ModeloCompuesto(mediaDir + "XWing\\X-Wing-TgcScene.xml", new TGCVector3(0,0,0));
-            posicion = new TGCVector3(0, 0, 0);
+            this.modeloNave = new ModeloCompuesto(mediaDir + "XWing\\X-Wing-TgcScene.xml", posicionInicial);
+            posicion = posicionInicial;
             timer = 0;
         }
 

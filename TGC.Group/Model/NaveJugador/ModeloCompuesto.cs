@@ -68,7 +68,7 @@ namespace TGC.Group.Model
         public void Render()
         {
             TransformarModelo(delegate (TgcMesh unMesh) { unMesh.Render(); });
-            //TransformarBoundingBox(delegate (TgcMesh unMesh) { unMesh.BoundingBox.Render(); });
+            TransformarBoundingBox(delegate (TgcMesh unMesh) { unMesh.BoundingBox.Render(); });
         }
 
         public void Dispose()

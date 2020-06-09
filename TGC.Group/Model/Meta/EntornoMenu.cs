@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TGC.Core.Camara;
 using TGC.Core.Mathematica;
 using TGC.Group.Model.Clases2D;
+using TGC.Group.Model.Mundo;
 
 namespace TGC.Group.Model.Meta
 {
@@ -24,10 +25,9 @@ namespace TGC.Group.Model.Meta
         public override void Init()
         {
             gameModel.CambiarCamara(camaraDeMenu);
-            NaveDeMenu naveDeMenu = new NaveDeMenu(mediaDir);
+            NaveDeMenu naveDeMenu = new NaveDeMenu(mediaDir, new TGCVector3(0,0,0));
             GameManager.Instance.AgregarRenderizable(naveDeMenu);
-            Skybox skybox = new Skybox(mediaDir, camaraDeMenu);
-            GameManager.Instance.AgregarRenderizable(skybox);
+            GameManager.Instance.AgregarRenderizable(new SkyboxMenu(mediaDir, new TGCVector3(0, 20, 0)));
         }
 
         public override void Render()
