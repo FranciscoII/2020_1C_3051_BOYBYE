@@ -49,7 +49,7 @@ namespace TGC.Group.Model
 
         public virtual void Update(float elapsedTime)
         {
-            if (GameManager.Instance.Pause)
+            if (GameManager.Instance.estaPausado)
                 return;
 
             TGCQuaternion rotation = TGCQuaternion.RotationAxis(new TGCVector3(1.0f, 0.0f, 0.0f), Geometry.DegreeToRadian(90f));

@@ -44,7 +44,7 @@ namespace TGC.Group.Model
         
         public override void Update(float elapsedTime)
         {
-            if (GameManager.Instance.Pause)
+            if (GameManager.Instance.estaPausado)
                 return;
             base.Update(elapsedTime);
 

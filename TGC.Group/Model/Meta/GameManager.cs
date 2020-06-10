@@ -16,7 +16,7 @@ namespace TGC.Group.Model
     internal class GameManager
     {
         private List<IRenderizable> Renderizables = new List<IRenderizable>();
-        public bool Pause { get; set; }
+        public bool estaPausado { get; set; }
         private float cooldownPausa;
         public TgcFrustum Frustum { get; set; }
         public void Update(float elapsedTime)
@@ -62,13 +62,13 @@ namespace TGC.Group.Model
         }
         public void PausarJuego()
         {
-            this.Pause = true;
+            this.estaPausado = true;
         }
         public void ReanudarOPausarJuego()
         {
             if(cooldownPausa > 0.5f)
             {
-                this.Pause = !this.Pause;
+                this.estaPausado = !this.estaPausado;
                 cooldownPausa = 0f;
             }
         }

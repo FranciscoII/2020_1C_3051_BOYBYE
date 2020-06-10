@@ -61,7 +61,7 @@ namespace TGC.Group.Model
 
         public void Update(float elapsedTime)
         {
-            if (GameManager.Instance.Pause)
+            if (GameManager.Instance.estaPausado)
                 return;
             segundosDesdeUltimoRoll += elapsedTime;
             segundosDesdeUltimoDisparo += elapsedTime;
@@ -127,7 +127,7 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            string textoControles = "Controles:\nQ: Roll\nE: Voltearse\nShift: Acelerar\nCtrl: Desacelerar";
+            
             if (estaVivo)
             {
                 modeloNave.AplicarTransformaciones();
@@ -144,7 +144,7 @@ namespace TGC.Group.Model
             new TgcText2D().drawText("Velocidad de la nave:\n" + velocidadActual.ToString(), 5, 20, Color.White);
             new TgcText2D().drawText("Rotacion de la nave:\n" + rotacionActual.ToString(), 5, 130, Color.White);
             */
-            //new TgcText2D().drawText(textoControles, 5, 10, Color.White);
+            
             hud.Render(cantidadVida, CantidadCombustibleParaRollear());
 
         }
