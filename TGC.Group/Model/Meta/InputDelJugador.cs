@@ -111,7 +111,7 @@ namespace TGC.Group.Model
         }
         public Boolean HayInputDePausa()
         {
-            return input.keyDown(Key.Escape);
+            return input.keyDown(Key.Return);
         }
         public Boolean HayInputDeSeleccion()
         {

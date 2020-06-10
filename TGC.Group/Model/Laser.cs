@@ -79,7 +79,7 @@ namespace TGC.Group.Model
         public void Render()
         {
             mainMesh.Render();
-            mainMesh.BoundingBox.Render();
+            //mainMesh.BoundingBox.Render();
 
         }
         public void Dispose()
