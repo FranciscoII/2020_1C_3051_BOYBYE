@@ -345,6 +345,7 @@ namespace TGC.Group.Model
 
         public void Chocar()
         {
+            PerderVida(100);
             Morir();
         }
 
