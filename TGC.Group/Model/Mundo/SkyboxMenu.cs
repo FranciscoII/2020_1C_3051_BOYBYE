@@ -24,7 +24,7 @@ namespace TGC.Group.Model.Mundo
             TgcScene scene2 = loader.loadSceneFromFile(mediaDir + "Skybox\\skySphere-TgcScene.xml");
             skySphere = scene2.Meshes[0];
             skySphere.Position = posicion;
-            MatrizEscala = TGCMatrix.Scaling(10f, 10f, 10f);
+            MatrizEscala = TGCMatrix.Scaling(8f, 8f, 8f);
             this.giro = 0f;
         }
 
@@ -45,7 +45,7 @@ namespace TGC.Group.Model.Mundo
 
         public void Update(float elapsedTime)
         {
-            this.giro += elapsedTime * .3f;
+            this.giro += elapsedTime * .05f;
             TGCQuaternion rotationY = TGCQuaternion.RotationAxis(new TGCVector3(0.0f, 1.0f, 0.0f), this.giro);
             skySphere.Transform = MatrizEscala * TGCMatrix.RotationTGCQuaternion(rotationY);
         }
