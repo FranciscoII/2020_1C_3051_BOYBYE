@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TGC.Core.BoundingVolumes;
+using TGC.Core.Camara;
 using TGC.Core.Collision;
 using TGC.Core.SceneLoader;
 using TGC.Examples.Camara;
@@ -15,7 +16,6 @@ namespace TGC.Group.Model
     internal class GameManager
     {
         private List<IRenderizable> Renderizables = new List<IRenderizable>();
-        public Camara Camara { get; set; }
         public bool Pause { get; set; }
         private float cooldownPausa;
         public TgcFrustum Frustum { get; set; }
@@ -23,7 +23,6 @@ namespace TGC.Group.Model
         {
             List<IRenderizable> RenderizablesAuxiliar = new List<IRenderizable>(Renderizables);
             RenderizablesAuxiliar.ForEach(delegate (IRenderizable unRenderizable) { unRenderizable.Update(elapsedTime); });
-            Camara.Update(elapsedTime);
             if (cooldownPausa < 3f)
                 cooldownPausa += elapsedTime;
         }
@@ -36,6 +35,7 @@ namespace TGC.Group.Model
         public void Dispose()
         {
             Renderizables.ForEach(delegate (IRenderizable unRenderizable) { unRenderizable.Dispose(); });
+            Renderizables = new List<IRenderizable>();
         }
 
         public void AgregarRenderizable(IRenderizable unRenderizable)

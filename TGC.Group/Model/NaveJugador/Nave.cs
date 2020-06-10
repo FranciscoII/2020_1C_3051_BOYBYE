@@ -54,7 +54,6 @@ namespace TGC.Group.Model
 
         public void Init()
         {
-            
             TGCVector3 rotacionInicial = new TGCVector3(0f, 1f, 0f) * Geometry.DegreeToRadian(180f);
             modeloNave.CambiarRotacion(rotacionInicial);
             SetearTextoGameOver();
@@ -138,8 +137,8 @@ namespace TGC.Group.Model
             {
                 textoGameOver.render();
             }
-            new TgcText2D().drawText("Pausa activa:\n" +GameManager.Instance.Pause.ToString(), 5, 60, Color.White);
-            new TgcText2D().drawText("Posicion de la nave:\n" + posicion.ToString(), 5, 160, Color.White);
+            //new TgcText2D().drawText("Pausa activa:\n" +GameManager.Instance.Pause.ToString(), 5, 60, Color.White);
+            //new TgcText2D().drawText("Posicion de la nave:\n" + posicion.ToString(), 5, 160, Color.White);
 
             /*
             new TgcText2D().drawText("Velocidad de la nave:\n" + velocidadActual.ToString(), 5, 20, Color.White);
