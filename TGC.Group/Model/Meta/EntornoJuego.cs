@@ -24,7 +24,7 @@ namespace TGC.Group.Model.Meta
 
         public override void Init()
         {
-            var posicionInicialDeNave = new TGCVector3(105, -15, -250);
+            var posicionInicialDeNave = new TGCVector3(105, -15, 420);
             Nave naveDelJuego = new Nave(mediaDir, posicionInicialDeNave, input);
             //Debe empezar pausado
             //GameManager.Instance.PausarJuego();
