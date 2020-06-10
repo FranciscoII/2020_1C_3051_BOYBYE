@@ -88,14 +88,14 @@ namespace TGC.Group.Model
             if (GameManager.Instance.esVisibleParaLaCamara(this.mainMesh))
             {
                 mainMesh.Render();
-                mainMesh.BoundingBox.Render();
+                //mainMesh.BoundingBox.Render();
             }
             else
             {
                 GameManager.Instance.QuitarRenderizable(this);
                 //Logger.Loggear("Se borro torreta posicionada en Z: " + posicionInicial.Z.ToString());
             }
-            /*
+            /* ----------No borrar aun este comentario.-------------------
             TGCVector3 PosicionB = jugador.GetPosicion();
             TGCVector3 DireccionA = new TGCVector3(0, 0, -1);
             TGCVector3 DireccionB = PosicionB - posicionInicial;
