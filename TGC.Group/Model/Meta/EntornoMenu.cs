@@ -25,7 +25,7 @@ namespace TGC.Group.Model.Meta
         public override void Init()
         {
             gameModel.CambiarCamara(camaraDeMenu);
-            NaveDeMenu naveDeMenu = new NaveDeMenu(mediaDir, new TGCVector3(0,0,0));
+            NaveDeMenu naveDeMenu = new NaveDeMenu(mediaDir, new TGCVector3(0,10,0));
             GameManager.Instance.AgregarRenderizable(naveDeMenu);
             GameManager.Instance.AgregarRenderizable(new SkyboxMenu(mediaDir, new TGCVector3(0, 20, 0)));
         }
