@@ -20,11 +20,13 @@ namespace TGC.Group.Model
 
         public override void Render()
         {
+            /*
             if (ColisionaConNave())
             {
-                mainMesh.BoundingBox.setRenderColor(Color.Red);
+                mainMesh.BoundingBox.setRenderColor(Color.Red);//para "debuggear"
             }
             mainMesh.BoundingBox.Render();
+        */
         }
 
         public override void Dispose(){}

@@ -20,15 +20,17 @@ namespace TGC.Group.Model
         private TGCMatrix matrizPosicion;
         private TGCMatrix matrizRotacion;
         private float coolDownDisparo;
+        private TieFighterSpawner spawner;
 
         //private TgcBoundingAxisAlignBox boundingBox;
 
-        public TieFighter(string mediaDir, TGCVector3 posicionInicial,Nave jugador) : base(jugador)
+        public TieFighter(string mediaDir, TGCVector3 posicionInicial,Nave jugador, TieFighterSpawner spawner) : base(jugador)
         {
             this.mediaDir = mediaDir;
             this.posicion = posicionInicial;
             this.modeloNave = new ModeloCompuesto(mediaDir + "XWing\\xwing-TgcScene.xml", posicion);
             coolDownDisparo = 0f;
+            this.spawner = spawner;
         }
 
 
@@ -74,6 +76,7 @@ namespace TGC.Group.Model
 
         public override void Dispose()
         {
+            liberarPosicionEnSpawner();
             modeloNave.Dispose();
         }
 
@@ -115,5 +118,12 @@ namespace TGC.Group.Model
         {
             return modeloNave.BoundingBoxesDelModelo()[0]; //TODO: Hacer que esto sea mas decente 
         }
+
+        private void liberarPosicionEnSpawner()
+        {
+            TGCVector2 posicionLibre = new TGCVector2(this.posicion.X, this.posicion.Y);
+            spawner.AgregarPosicionLibre(posicionLibre);
+        }
+
     }
 }

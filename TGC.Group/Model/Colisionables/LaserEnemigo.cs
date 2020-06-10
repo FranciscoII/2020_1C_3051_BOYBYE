@@ -49,11 +49,12 @@ namespace TGC.Group.Model
 
         public override void Render()
         {
+            /* //Utilizado Para debug
             if (ColisionaConNave())
             {
                 mainMesh.BoundingBox.setRenderColor(Color.Red);
             }
-
+            */
             modeloLaser.Render();
         }
 

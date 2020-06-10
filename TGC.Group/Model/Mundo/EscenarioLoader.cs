@@ -53,7 +53,8 @@ namespace TGC.Group.Model
             positions.Add(new TGCVector3(115, -37, 1735));
 
             List<TGCVector3> positions2 = new List<TGCVector3>();
-            positions2.Add(new TGCVector3(100, 0, 300));
+            positions2.Add(new TGCVector3(119, -25, 400));
+            positions2.Add(new TGCVector3(90, -25, 400));
 
             BloqueBuilder bloque = new BloqueBuilder(mediaDir, new TGCVector3(0f, 0f, 1000f), "Xwing\\10-TgcScene.xml", positions, nave);
             BloqueBuilder bloque1 = new BloqueBuilder(mediaDir, new TGCVector3(0f, 90f, 1000f), "Xwing\\death+star-TgcScene.xml", positions2, nave);

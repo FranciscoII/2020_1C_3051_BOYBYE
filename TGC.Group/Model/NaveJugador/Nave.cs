@@ -318,7 +318,7 @@ namespace TGC.Group.Model
 
         private Boolean SePuedeDisparar()
         {
-            return segundosDesdeUltimoDisparo > 0.1f;
+            return segundosDesdeUltimoDisparo > 0.1f && estaVivo;
         }
         private void Disparar()
         {
