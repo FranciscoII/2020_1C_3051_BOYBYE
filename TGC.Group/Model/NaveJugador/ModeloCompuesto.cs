@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using TGC.Core.BoundingVolumes;
 using TGC.Core.Collision;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model
 {
@@ -17,11 +19,14 @@ namespace TGC.Group.Model
         private readonly List<TgcMesh> meshes;
         private TGCMatrix baseScaleRotation;
         private TGCMatrix rotacionMesh;
+        private Effect effect;
+
         public ModeloCompuesto(string direccionDelModelo, TGCVector3 posicionInicial)
         {
+            effect = TGCShaders.Instance.LoadEffect("..\\..\\Shaders\\" + "Fran.fx");
             meshes = new TgcSceneLoader().loadSceneFromFile(direccionDelModelo).Meshes;
             this.CambiarPosicion(posicionInicial);
-
+            TransformarModelo(delegate (TgcMesh unMesh) { unMesh.Effect = effect; unMesh.Technique = "Luzbelito"; });
         }
 
         private void TransformarModelo(Action<TgcMesh> funcionTransformacion)
@@ -92,6 +97,21 @@ namespace TGC.Group.Model
         {
             return meshes[0];
         }
-
+        private void UpdateEffect(Effect effect,TGCVector3 posicionSol,TGCVector3 posicionCamara)
+        {
+            effect.SetValue("ambientColor", ColorValue.FromColor(Color.White));
+            effect.SetValue("diffuseColor", ColorValue.FromColor(Color.LightGray));
+            effect.SetValue("specularColor", ColorValue.FromColor(Color.LightGray));
+            effect.SetValue("KAmbient", 0.9f);
+            effect.SetValue("KDiffuse", 0.75f);
+            effect.SetValue("KSpecular", 0.5f);
+            effect.SetValue("shininess",15f);
+            effect.SetValue("posicionSol", TGCVector3.TGCVector3ToFloat3Array(posicionSol));
+            effect.SetValue("eyePosition", TGCVector3.TGCVector3ToFloat3Array(posicionCamara));
+        }
+        public void UpdateShader(TGCVector3 posicionSol, TGCVector3 posicionCamara)
+        {
+            TransformarModelo(delegate (TgcMesh unMesh) { UpdateEffect(unMesh.Effect,posicionSol,posicionCamara); });
+        }
     }
 }

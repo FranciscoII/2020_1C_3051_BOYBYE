@@ -112,7 +112,6 @@ namespace TGC.Group.Model
 
             CalcularColision();
             MoverseEnDireccion(input.DireccionDelInput(), elapsedTime);
-
         }
 
         private void CalcularColision()
@@ -180,8 +179,7 @@ namespace TGC.Group.Model
 
             posicion.Z = nuevaPosiblePosicion.Z;
 
-
-            modeloNave.CambiarPosicion(posicion);
+            
         }
         #region Rotacion
 
@@ -340,7 +338,7 @@ namespace TGC.Group.Model
 
         public void Morir()
         {
-            estaVivo = false;
+            //estaVivo = false;
         }
 
         public void Chocar()
@@ -366,6 +364,12 @@ namespace TGC.Group.Model
         public float GetVelocidad()
         {
             return velocidadActual;
+        }
+        public void updateShader(TGCVector3 posicionCamara)
+        {
+            var posicionSol = new TGCVector3(110, posicion.Y + 10, posicion.Z + 15);
+            modeloNave.CambiarPosicion(posicion);
+            modeloNave.UpdateShader(posicionSol, posicionCamara);
         }
     }
 }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.DirectX.Direct3D;
 using TGC.Core.Collision;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model
 {
@@ -21,6 +23,7 @@ namespace TGC.Group.Model
         private List<TGCVector3> posicionesTorretas;
         private Nave nave;
         private List<ObstaculoMapa> listaObstaculos;
+        private Effect effect;
 
         public Bloque(string mediaDir, TGCVector3 posicionInicial,String nombreMapa,List<TGCVector3> posiciones,Nave nave)
         {
@@ -39,10 +42,11 @@ namespace TGC.Group.Model
             TranslationMatrix = TGCMatrix.Translation(posicionInicial);
             instanciarObstaculosMapa();
             instanciarTorretas();
-
+            effect = TGCShaders.Instance.LoadEffect("..\\..\\Shaders\\" + "Fran.fx");
             Scene.Meshes.ForEach(delegate (TgcMesh mesh) {
                 mesh.Transform = ScaleMatrix * TranslationMatrix;
                 mesh.BoundingBox.transform(ScaleMatrix * TranslationMatrix);
+                mesh.Effect = effect; mesh.Technique = "Borrado";
             });
         }
 
@@ -66,6 +70,7 @@ namespace TGC.Group.Model
 
         public void Update(float elapsedTime)
         {
+
             if (nave.GetPosicion().Z > posicionInicial.Z + 3000f) //este numero deberia corrseponder idealmente al tamaño del bloque
             {
                 for (int i = 0; i < listaObstaculos.Count; i++)
@@ -82,6 +87,7 @@ namespace TGC.Group.Model
             Scene.Meshes.ForEach(delegate (TgcMesh mesh) {
                 if (GameManager.Instance.esVisibleParaLaCamara(mesh))
                 {
+                    mesh.Effect.SetValue("posicionNave", TGCVector3.TGCVector3ToFloat3Array(nave.GetPosicion()));
                     mesh.Render();
                 }
             });
