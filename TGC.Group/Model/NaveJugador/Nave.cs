@@ -368,7 +368,6 @@ namespace TGC.Group.Model
         }
         public void updateShader()
         {
-            var posicionSol = new TGCVector3(110, posicion.Y + 10, posicion.Z + 15);
             updatePosicionSol();
             modeloNave.CambiarPosicion(posicion);
             modeloNave.UpdateShader(GameManager.Instance.PosicionSol, GameManager.Instance.EyePosition());

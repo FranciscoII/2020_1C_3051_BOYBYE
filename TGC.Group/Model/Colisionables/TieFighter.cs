@@ -61,6 +61,7 @@ namespace TGC.Group.Model
                 Disparar(naveDelJugador.GetPosicion(), elapsedTime);
             }
             //matrizEscala * matrizRotacion *matrizPosicion;
+            modeloNave.UpdateShader(GameManager.Instance.PosicionSol, GameManager.Instance.EyePosition());
         }
         private bool NaveEstaMuyLejos()
         {

@@ -28,7 +28,6 @@ namespace TGC.Group.Model
 
         public void Init()
         {
-            
         }
 
         public void Render()
@@ -49,6 +48,11 @@ namespace TGC.Group.Model
         {
             timer += elapsedTime;
             MoverseEnDireccion(new TGCVector3(0,Math.Sign(Math.Sin(timer*2)),0),elapsedTime);
+            updateShader();
+        }
+        public void updateShader()
+        {
+            modeloNave.UpdateShader(GameManager.Instance.PosicionSol, GameManager.Instance.EyePosition());
         }
     }
 }

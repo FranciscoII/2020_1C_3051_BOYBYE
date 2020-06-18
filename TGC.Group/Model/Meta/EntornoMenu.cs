@@ -28,6 +28,7 @@ namespace TGC.Group.Model.Meta
             NaveDeMenu naveDeMenu = new NaveDeMenu(mediaDir, new TGCVector3(0,10,0));
             GameManager.Instance.AgregarRenderizable(naveDeMenu);
             GameManager.Instance.AgregarRenderizable(new SkyboxMenu(mediaDir, new TGCVector3(0, 20, 0)));
+            GameManager.Instance.PosicionSol = new TGCVector3(3, 15, -1);
         }
 
         public override void Render()
