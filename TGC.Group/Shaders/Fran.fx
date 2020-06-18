@@ -106,7 +106,7 @@ float4 pixelShader(VS_OUTPUT input) : COLOR0
 {
     float4 texelColor = tex2D(diffuseMap, input.Texcoord);
     
-	if (input.worldPosition.z < posicionNave.z && input.worldPosition.x > 90 && input.worldPosition.x < 127 && input.worldPosition.y >-29)
+	if (input.worldPosition.z < posicionNave.z && input.worldPosition.x > 90 && input.worldPosition.x < 127 && input.worldPosition.y > posicionNave.y)
         discard;
 	
     return texelColor;
