@@ -56,6 +56,7 @@ namespace TGC.Group.Model
         {
             TGCVector3 rotacionInicial = new TGCVector3(0f, 1f, 0f) * Geometry.DegreeToRadian(180f);
             modeloNave.CambiarRotacion(rotacionInicial);
+            updatePosicionSol();
             SetearTextoGameOver();
         }
 
@@ -126,7 +127,7 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            
+            this.updateShader();
             if (estaVivo)
             {
                 modeloNave.AplicarTransformaciones();
@@ -137,7 +138,7 @@ namespace TGC.Group.Model
                 textoGameOver.render();
             }
             //new TgcText2D().drawText("Pausa activa:\n" +GameManager.Instance.Pause.ToString(), 5, 60, Color.White);
-            //new TgcText2D().drawText("Posicion de la nave:\n" + posicion.ToString(), 5, 160, Color.White);
+            new TgcText2D().drawText("Posicion del SOL:\n" + GameManager.Instance.PosicionSol.ToString(), 5, 160, Color.White);
 
             /*
             new TgcText2D().drawText("Velocidad de la nave:\n" + velocidadActual.ToString(), 5, 20, Color.White);
@@ -368,8 +369,13 @@ namespace TGC.Group.Model
         public void updateShader()
         {
             var posicionSol = new TGCVector3(110, posicion.Y + 10, posicion.Z + 15);
+            updatePosicionSol();
             modeloNave.CambiarPosicion(posicion);
-            modeloNave.UpdateShader(posicionSol, GameManager.Instance.EyePosition());
+            modeloNave.UpdateShader(GameManager.Instance.PosicionSol, GameManager.Instance.EyePosition());
+        }
+        public void updatePosicionSol()
+        {
+            GameManager.Instance.PosicionSol = new TGCVector3(110, posicion.Y + 10, posicion.Z + 15);
         }
     }
 }

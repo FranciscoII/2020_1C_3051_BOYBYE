@@ -21,6 +21,7 @@ namespace TGC.Group.Model
         private float cooldownPausa;
         public TgcFrustum Frustum { get; set; }
         public TgcCamera camaraJuego { get; set; }
+        public TGCVector3 PosicionSol { get; set; }
         public void Update(float elapsedTime)
         {
             List<IRenderizable> RenderizablesAuxiliar = new List<IRenderizable>(Renderizables);
@@ -31,7 +32,7 @@ namespace TGC.Group.Model
         public void Render()
         {
             List<IRenderizable> RenderizablesAuxiliar = new List<IRenderizable>(Renderizables);
-            RenderizablesAuxiliar.ForEach(delegate (IRenderizable unRenderizable){ unRenderizable.Render(); } );
+            RenderizablesAuxiliar.ForEach(delegate (IRenderizable unRenderizable) { unRenderizable.Render(); });
         }
 
         public void Dispose()
@@ -59,7 +60,7 @@ namespace TGC.Group.Model
         public Laser LaserQueColisiona(TgcBoundingAxisAlignBox unBoundingBox)
         {
             var lista = new List<Laser>(Renderizables.OfType<Laser>().Where(laser => TgcCollisionUtils.testAABBAABB(laser.GetMainMesh().BoundingBox, unBoundingBox)));
-            
+
             return lista[0];
         }
         public void PausarJuego()
@@ -68,7 +69,7 @@ namespace TGC.Group.Model
         }
         public void ReanudarOPausarJuego()
         {
-            if(cooldownPausa > 0.5f)
+            if (cooldownPausa > 0.5f)
             {
                 this.estaPausado = !this.estaPausado;
                 cooldownPausa = 0f;
@@ -97,6 +98,7 @@ namespace TGC.Group.Model
         {
             return camaraJuego.Position;
         }
+        
         #region Singleton
 
         private static volatile GameManager instance;
