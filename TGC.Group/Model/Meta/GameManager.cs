@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Camara;
 using TGC.Core.Collision;
+using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Examples.Camara;
 
@@ -19,6 +20,7 @@ namespace TGC.Group.Model
         public bool estaPausado { get; set; }
         private float cooldownPausa;
         public TgcFrustum Frustum { get; set; }
+        public TgcCamera camaraJuego { get; set; }
         public void Update(float elapsedTime)
         {
             List<IRenderizable> RenderizablesAuxiliar = new List<IRenderizable>(Renderizables);
@@ -90,6 +92,10 @@ namespace TGC.Group.Model
         {
             TgcCollisionUtils.FrustumResult result = TgcCollisionUtils.classifyFrustumAABB(this.Frustum, mesh.BoundingBox);
             return result != TgcCollisionUtils.FrustumResult.OUTSIDE;
+        }
+        public TGCVector3 EyePosition()
+        {
+            return camaraJuego.Position;
         }
         #region Singleton
 

@@ -57,6 +57,7 @@ namespace TGC.Group.Model
         public void CambiarCamara(TgcCamera nuevaCamara)
         {
             this.Camera = nuevaCamara;
+            GameManager.Instance.camaraJuego = nuevaCamara;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace TGC.Examples.Camara
         {
             SeguirNaveParaAdelante();
             base.UpdateCamera(elapsedTime);
-            NaveDelJuego.updateShader(this.Position);
+            NaveDelJuego.updateShader();
 
         }
     }

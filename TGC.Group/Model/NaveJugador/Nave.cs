@@ -365,11 +365,11 @@ namespace TGC.Group.Model
         {
             return velocidadActual;
         }
-        public void updateShader(TGCVector3 posicionCamara)
+        public void updateShader()
         {
             var posicionSol = new TGCVector3(110, posicion.Y + 10, posicion.Z + 15);
             modeloNave.CambiarPosicion(posicion);
-            modeloNave.UpdateShader(posicionSol, posicionCamara);
+            modeloNave.UpdateShader(posicionSol, GameManager.Instance.EyePosition());
         }
     }
 }
