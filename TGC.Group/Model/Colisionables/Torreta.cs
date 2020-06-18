@@ -10,6 +10,7 @@ using TGC.Core.BoundingVolumes;
 using TGC.Core.Input;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using TGC.Core.Shaders;
 using TGC.Core.Text;
 
 namespace TGC.Group.Model
@@ -40,6 +41,9 @@ namespace TGC.Group.Model
             baseQuaternionTranslation = TGCMatrix.Translation(posicionInicial);
             baseScaleRotation = TGCMatrix.Scaling(new TGCVector3(0.14f, 0.16f, 0.14f));
             mainMesh.Transform = TGCMatrix.Scaling(0.1f, 0.1f, 0.1f);
+            var effect = TGCShaders.Instance.LoadEffect("..\\..\\Shaders\\" + "Fran.fx");
+            mainMesh.Effect = effect;
+            mainMesh.Technique = "Luzbelito";
         }
 
         public override void Update(float elapsedTime)
@@ -81,6 +85,7 @@ namespace TGC.Group.Model
                 tiempo = 0f;
             }
             //--------
+            UpdateEffect();
         }
 
         public override void Render()
@@ -119,6 +124,19 @@ namespace TGC.Group.Model
         {
             return mainMesh.BoundingBox;
         }
-
+        private void UpdateEffect()
+        {
+            var posicionSol = GameManager.Instance.PosicionSol;
+            var posicionCamara = GameManager.Instance.EyePosition();
+            mainMesh.Effect.SetValue("ambientColor", ColorValue.FromColor(Color.White));
+            mainMesh.Effect.SetValue("diffuseColor", ColorValue.FromColor(Color.LightGray));
+            mainMesh.Effect.SetValue("specularColor", ColorValue.FromColor(Color.LightGray));
+            mainMesh.Effect.SetValue("KAmbient", 0.9f);
+            mainMesh.Effect.SetValue("KDiffuse", 0.75f);
+            mainMesh.Effect.SetValue("KSpecular", 0.25f);
+            mainMesh.Effect.SetValue("shininess", 13f);
+            mainMesh.Effect.SetValue("posicionSol", TGCVector3.TGCVector3ToFloat3Array(posicionSol));
+            mainMesh.Effect.SetValue("eyePosition", TGCVector3.TGCVector3ToFloat3Array(posicionCamara));
+        }
     }
 }
