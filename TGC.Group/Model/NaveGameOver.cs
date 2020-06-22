@@ -83,5 +83,9 @@ namespace TGC.Group.Model
         {
             iniciarAnimacion = true;
         }
+        public TGCVector3 GetPosicion()
+        {
+            return posicion;
+        }
     }
 }

@@ -46,12 +46,16 @@ namespace TGC.Group.Model.Meta
             }
 
             GameManager.Instance.Update(elapsedTime);
+            if (nave.GetPosicion().X > 300f) //la nave se va de la pantalla.
+                CambiarEntorno(new EntornoJuego(gameModel,mediaDir,input));
         }
 
         public override void Render()
         {
             GameManager.Instance.Render();
             menuGameOver.DibujarMenu();
+            new TgcText2D().drawText("Posicion del nave:\n" + nave.GetPosicion().X.ToString(), 5, 160, Color.White);
+
 
         }
         public override void Dispose()
