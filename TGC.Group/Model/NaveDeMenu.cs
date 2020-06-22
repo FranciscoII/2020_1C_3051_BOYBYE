@@ -12,7 +12,7 @@ namespace TGC.Group.Model
     {
         private readonly ModeloCompuesto modeloNave;
         private TGCVector3 posicion;
-        private float timer; //Mal nombreeee
+        private float timer; //Mal nombreeee. //no pasa nada bro
 
         public NaveDeMenu(string mediaDir, TGCVector3 posicionInicial)
         {
