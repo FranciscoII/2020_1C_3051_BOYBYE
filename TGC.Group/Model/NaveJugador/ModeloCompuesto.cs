@@ -97,7 +97,7 @@ namespace TGC.Group.Model
         {
             return meshes[0];
         }
-        private void UpdateEffect(Effect effect,TGCVector3 posicionSol,TGCVector3 posicionCamara)
+        private void UpdateEffect(Effect effect,TGCVector3 posicionSol,TGCVector3 posicionCamara,float tiempo)
         {
             effect.SetValue("ambientColor", ColorValue.FromColor(Color.White));
             effect.SetValue("diffuseColor", ColorValue.FromColor(Color.LightGray));
@@ -108,10 +108,19 @@ namespace TGC.Group.Model
             effect.SetValue("shininess",15f);
             effect.SetValue("posicionSol", TGCVector3.TGCVector3ToFloat3Array(posicionSol));
             effect.SetValue("eyePosition", TGCVector3.TGCVector3ToFloat3Array(posicionCamara));
+            effect.SetValue("tiempo", tiempo);
         }
-        public void UpdateShader(TGCVector3 posicionSol, TGCVector3 posicionCamara)
+        public void UpdateShader(TGCVector3 posicionSol, TGCVector3 posicionCamara,float tiempo)
         {
-            TransformarModelo(delegate (TgcMesh unMesh) { UpdateEffect(unMesh.Effect,posicionSol,posicionCamara); });
+            TransformarModelo(delegate (TgcMesh unMesh) { UpdateEffect(unMesh.Effect,posicionSol,posicionCamara,tiempo); });
+        }
+        public void CambiarEscala(TGCVector3 scale)
+        {
+            baseScaleRotation = TGCMatrix.Scaling(scale);
+        }
+        public void CambiarShader(String tech)
+        {
+            TransformarModelo(delegate (TgcMesh unMesh) {unMesh.Technique = tech; });
         }
     }
 }

@@ -142,6 +142,7 @@
     <Compile Include="Model\Meta\InputDelJugador.cs" />
     <Compile Include="Model\Mundo\EscenarioLoader.cs" />
     <Compile Include="Model\Laser.cs" />
+    <Compile Include="Model\NaveGameOver.cs" />
     <Compile Include="Model\NaveJugador\LaserDeJugador.cs" />
     <Compile Include="Model\Colisionables\LaserEnemigo.cs" />
     <Compile Include="Model\NaveJugador\ModeloCompuesto.cs" />

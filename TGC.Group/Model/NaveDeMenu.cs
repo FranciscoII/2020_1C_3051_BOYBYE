@@ -10,9 +10,9 @@ namespace TGC.Group.Model
 {
     class NaveDeMenu : IRenderizable
     {
-        private readonly ModeloCompuesto modeloNave;
-        private TGCVector3 posicion;
-        private float timer; //Mal nombreeee. //no pasa nada bro
+        protected readonly ModeloCompuesto modeloNave;
+        protected TGCVector3 posicion;
+        protected float timer; //Mal nombreeee. //no pasa nada bro
 
         public NaveDeMenu(string mediaDir, TGCVector3 posicionInicial)
         {
@@ -35,7 +35,7 @@ namespace TGC.Group.Model
             modeloNave.Render();
         }
 
-        private void MoverseEnDireccion(TGCVector3 versorDirector, float elapsedTime)
+        protected void MoverseEnDireccion(TGCVector3 versorDirector, float elapsedTime)
         {
             TGCVector3 movimientoDelFrame = elapsedTime * versorDirector*4;
 
@@ -52,7 +52,7 @@ namespace TGC.Group.Model
         }
         public void updateShader()
         {
-            modeloNave.UpdateShader(GameManager.Instance.PosicionSol, GameManager.Instance.EyePosition());
+            modeloNave.UpdateShader(GameManager.Instance.PosicionSol, GameManager.Instance.EyePosition(),0f);
         }
     }
 }

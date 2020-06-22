@@ -18,7 +18,7 @@ namespace TGC.Group.Model.Clases2D
             drawer = new Drawer2D();
             GameOverSprite = new CustomSprite
             {
-                Bitmap = new CustomBitmap(mediaDir + "logo.png", D3DDevice.Instance.Device),
+                Bitmap = new CustomBitmap(mediaDir + "gameOver.jpg", D3DDevice.Instance.Device),
                 Position = new TGCVector2(D3DDevice.Instance.Width * 0.4f, D3DDevice.Instance.Height * 0.05f),
                 Scaling = new TGCVector2(0.000195f * D3DDevice.Instance.Width, 0.00092f * D3DDevice.Instance.Height),
             };

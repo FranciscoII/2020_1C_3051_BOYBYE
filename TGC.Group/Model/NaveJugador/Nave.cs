@@ -370,7 +370,7 @@ namespace TGC.Group.Model
         {
             updatePosicionSol();
             modeloNave.CambiarPosicion(posicion);
-            modeloNave.UpdateShader(GameManager.Instance.PosicionSol, GameManager.Instance.EyePosition());
+            modeloNave.UpdateShader(GameManager.Instance.PosicionSol, GameManager.Instance.EyePosition(),0f);
         }
         public void updatePosicionSol()
         {

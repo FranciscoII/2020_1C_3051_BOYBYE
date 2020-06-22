@@ -30,6 +30,7 @@ float shininess; //Exponente de specular
 float3 lightPosition; //Posicion de la luz
 float3 eyePosition; //Posicion de la camara
 
+float tiempo; //Utilizado para nave en game over
 
 
 texture texDiffuseMap;
@@ -156,5 +157,48 @@ technique Luzbelito
     {
         VertexShader = compile vs_3_0 vertexShader();
         PixelShader = compile ps_3_0 pixelLuzShader();
+    }
+}
+//------------------------------------------NaveGameOver-----------------------------------------
+//Pixel Shader
+float4 pixelGameOverShader(VS_OUTPUT input) : COLOR0
+{
+    input.worldNormal = normalize(input.worldNormal);
+
+    float3 lightDirection = normalize(posicionSol - input.worldPosition);
+    float3 viewDirection = normalize(eyePosition - input.worldPosition);
+
+	// Obtener texel de la textura
+    float4 texelColor = tex2D(diffuseMap, input.Texcoord);
+
+	//Componente Diffuse: N dot L
+    float3 NdotL = dot(input.worldNormal, lightDirection);
+    float3 diffuseLight = KDiffuse * diffuseColor * max(0.0, NdotL);
+
+	//Componente Specular: (R dot V)^shininess
+    float3 reflection = reflect(-lightDirection, input.worldNormal);
+    float3 specularLight = pow(max(0.0, dot(viewDirection, reflection)), shininess) * KSpecular * specularColor;
+
+
+    float4 finalColor = float4(saturate(ambientColor * KAmbient + diffuseLight) * texelColor + specularLight, texelColor.a);
+    
+    float4 gris = float4(0.6, 0.6, 0.6, 1);
+    
+    //if (tiempo > 1)
+    //    tiempo = 1;
+       
+    float retorno = lerp(gris, finalColor, tiempo);
+    
+    return retorno;
+	
+
+}
+
+technique NaveGameOver
+{
+    pass Pass_0
+    {
+        VertexShader = compile vs_3_0 vertexShader();
+        PixelShader = compile ps_3_0 pixelGameOverShader();
     }
 }
