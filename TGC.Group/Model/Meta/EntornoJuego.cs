@@ -16,7 +16,7 @@ namespace TGC.Group.Model.Meta
     {
         private EscenarioLoader escenarioLoader;
         private TieFighterSpawner tieFighterSpawner;
-        
+        private Nave naveDelJuego;
 
         public EntornoJuego(GameModel gameModel, string mediaDir, InputDelJugador input) : base(gameModel, mediaDir, input)
         {
@@ -25,7 +25,7 @@ namespace TGC.Group.Model.Meta
         public override void Init()
         {
             var posicionInicialDeNave = new TGCVector3(105, -15, 420);
-            Nave naveDelJuego = new Nave(mediaDir, posicionInicialDeNave, input);
+            naveDelJuego = new Nave(mediaDir, posicionInicialDeNave, input);
             //Debe empezar pausado
             //GameManager.Instance.PausarJuego();
             
@@ -49,7 +49,8 @@ namespace TGC.Group.Model.Meta
             GameManager.Instance.Update(elapsedTime);
             escenarioLoader.Update(elapsedTime);
             tieFighterSpawner.Update(elapsedTime);
-            
+            if (!naveDelJuego.estaVivo)
+                CambiarEntorno(new EntornoGameOver(gameModel, mediaDir, input));
         }
 
         public override void Render()

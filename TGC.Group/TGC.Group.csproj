@@ -121,6 +121,7 @@
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
     <Compile Include="Model\CamaraDelJuego.cs" />
+    <Compile Include="Model\Meta\EntornoGameOver.cs" />
     <Compile Include="Model\Mundo\SkyboxMenu.cs" />
     <Compile Include="Model\NaveDeMenu.cs" />
     <Compile Include="Model\Meta\Entorno.cs" />

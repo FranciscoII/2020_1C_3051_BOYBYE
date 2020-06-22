@@ -23,7 +23,7 @@ namespace TGC.Group.Model
         private TGCVector3 rotacionActual;
         private readonly float velocidadRotacion;
         private bool estaRolleando;
-        private bool estaVivo;
+        public bool estaVivo;
         private TgcText2D textoGameOver;
         private string mediaDir;
         private float segundosDesdeUltimoRoll;
@@ -339,7 +339,7 @@ namespace TGC.Group.Model
 
         public void Morir()
         {
-            //estaVivo = false;
+            estaVivo = false;
         }
 
         public void Chocar()
