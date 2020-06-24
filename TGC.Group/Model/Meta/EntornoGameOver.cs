@@ -54,8 +54,6 @@ namespace TGC.Group.Model.Meta
         {
             GameManager.Instance.Render();
             menuGameOver.DibujarMenu();
-            new TgcText2D().drawText("Posicion del nave:\n" + nave.GetPosicion().X.ToString(), 5, 160, Color.White);
-
 
         }
         public override void Dispose()

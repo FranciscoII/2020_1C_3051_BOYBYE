@@ -138,7 +138,7 @@ namespace TGC.Group.Model
                 textoGameOver.render();
             }
             //new TgcText2D().drawText("Pausa activa:\n" +GameManager.Instance.Pause.ToString(), 5, 60, Color.White);
-            new TgcText2D().drawText("Posicion del SOL:\n" + GameManager.Instance.PosicionSol.ToString(), 5, 160, Color.White);
+            //new TgcText2D().drawText("Posicion del SOL:\n" + GameManager.Instance.PosicionSol.ToString(), 5, 160, Color.White);
 
             /*
             new TgcText2D().drawText("Velocidad de la nave:\n" + velocidadActual.ToString(), 5, 20, Color.White);
