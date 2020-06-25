@@ -10,6 +10,7 @@ using TGC.Core.Direct3D;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Core.Shaders;
+using TGC.Core.Textures;
 
 namespace TGC.Group.Model
 {
@@ -36,7 +37,7 @@ namespace TGC.Group.Model
         private Texture g_pShadowMap; // Texture to which the shadow map is rendered
         // Shadow map
         private readonly int SHADOWMAP_SIZE = 1024;
-        private readonly float far_plane = 1000f;
+        private readonly float far_plane = 1500f;
         private readonly float near_plane = 2f;
         private Texture renderTarget;
         private Surface depthStencil;
@@ -83,8 +84,8 @@ namespace TGC.Group.Model
             g_mShadowProj = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
             D3DDevice.Instance.Device.Transform.Projection = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane).ToMatrix();
             var posicionNave = nave.GetPosicion();
-            g_LightPos = new TGCVector3(posicionNave.X-5, posicionNave.Y+30, posicionNave.Z);
-            g_LightLookAt = new TGCVector3(posicionNave.X, posicionNave.Y, posicionNave.Z+40);
+            g_LightPos = new TGCVector3(this.posicionInicial.X, this.posicionInicial.Y+30, this.posicionInicial.Z+420);
+            g_LightLookAt = new TGCVector3(this.posicionInicial.X, this.posicionInicial.Y, this.posicionInicial.Z + 600);
 
         }
 
@@ -122,36 +123,33 @@ namespace TGC.Group.Model
         public void Render()
         {
             //RenderScene(false);
-            //ClearTextures();
-            D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
+            //D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
+            //TexturesManager.Instance.clearAll();
 
-            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-            D3DDevice.Instance.Device.BeginScene();
+            //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
+            //D3DDevice.Instance.Device.BeginScene();
             g_LightDir = g_LightLookAt - g_LightPos;
             g_LightDir.Normalize();
 
 
             // Shadow maps:
-            D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
+            //D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
 
-            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+            //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
 
             //Genero el shadow map
-            RenderShadowMap();
+            RenderShadowMap(); //begin y end
 
-            D3DDevice.Instance.Device.BeginScene();
+            //D3DDevice.Instance.Device.BeginScene();
             // dibujo la escena pp dicha
-            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
+            //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
             RenderScene(false);
 
 
 
             //D3DDevice.Instance.Device.EndScene();
             //D3DDevice.Instance.Device.Present();
-            //D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
-
-            //D3DDevice.Instance.Device.BeginScene();
-            //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
+            
 
 
         }
@@ -173,15 +171,15 @@ namespace TGC.Group.Model
             D3DDevice.Instance.Device.SetRenderTarget(0, pShadowSurf);
             var pOldDS = D3DDevice.Instance.Device.DepthStencilSurface;
             D3DDevice.Instance.Device.DepthStencilSurface = g_pDSShadow;
-            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1.0f, 0);
-            D3DDevice.Instance.Device.BeginScene();
+            D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
+           // D3DDevice.Instance.Device.BeginScene();
 
             // Hago el render de la escena pp dicha
             effect.SetValue("g_txShadow", g_pShadowMap);
             RenderScene(true);
 
             // Termino
-            D3DDevice.Instance.Device.EndScene();
+           // D3DDevice.Instance.Device.EndScene();
 
             // restuaro el render target y el stencil
             D3DDevice.Instance.Device.DepthStencilSurface = pOldDS;
