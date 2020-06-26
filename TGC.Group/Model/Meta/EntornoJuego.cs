@@ -70,5 +70,9 @@ namespace TGC.Group.Model.Meta
         {
             GameManager.Instance.Dispose();
         }
+        public Nave GetNave()
+        {
+            return naveDelJuego;
+        }
     }
 }
