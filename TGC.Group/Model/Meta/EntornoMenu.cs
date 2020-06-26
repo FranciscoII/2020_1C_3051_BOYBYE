@@ -15,7 +15,7 @@ namespace TGC.Group.Model.Meta
         private TgcCamera camaraDeMenu;
         private MenuPrincipal menuPrincipal;
 
-        public EntornoMenu(GameModel gameModel, string mediaDir, InputDelJugador input) : base(gameModel, mediaDir, input)
+        public EntornoMenu(GameModel gameModel, string mediaDir, InputDelJugador input, string shaderDir) : base(gameModel, mediaDir, input, shaderDir)
         {
             menuPrincipal = new MenuPrincipal(mediaDir);
             camaraDeMenu = new TgcCamera();
@@ -33,15 +33,17 @@ namespace TGC.Group.Model.Meta
 
         public override void Render()
         {
+            gameModel.AntesDelRender();
             GameManager.Instance.Render();
             menuPrincipal.DibujarMenu();
+            gameModel.DespuesDelRender();
         }
 
         public override void Update(float elapsedTime)
         {
             if (input.HayInputDePausa())
             {
-                CambiarEntorno(new EntornoJuego(gameModel, mediaDir, input));
+                CambiarEntorno(new EntornoJuego(gameModel, mediaDir, input,shaderDir));
             }
             else
             {

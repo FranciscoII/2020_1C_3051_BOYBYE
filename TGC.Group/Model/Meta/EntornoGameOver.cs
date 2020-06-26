@@ -20,7 +20,7 @@ namespace TGC.Group.Model.Meta
         private MenuGameOver menuGameOver;
         private TgcCamera camaraDeMenu;
         private NaveGameOver nave;
-        public EntornoGameOver(GameModel gameModel, string mediaDir, InputDelJugador input) : base(gameModel, mediaDir, input)
+        public EntornoGameOver(GameModel gameModel, string mediaDir, InputDelJugador input, string shaderDir) : base(gameModel, mediaDir, input, shaderDir)
         {
             menuGameOver = new MenuGameOver(mediaDir);
             camaraDeMenu = new TgcCamera();
@@ -47,7 +47,7 @@ namespace TGC.Group.Model.Meta
 
             GameManager.Instance.Update(elapsedTime);
             if (nave.GetPosicion().X > 300f) //la nave se va de la pantalla.
-                CambiarEntorno(new EntornoJuego(gameModel,mediaDir,input));
+                CambiarEntorno(new EntornoJuego(gameModel,mediaDir,input,shaderDir));
         }
 
         public override void Render()
