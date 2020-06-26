@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using Microsoft.DirectX.Direct3D;
 using TGC.Core.BoundingVolumes;
 using TGC.Core.Collision;
@@ -20,7 +21,7 @@ namespace TGC.Group.Model
         protected TGCMatrix baseScaleRotation;
         protected TGCMatrix baseQuaternionTranslation;
         protected TgcMesh mainMesh;
-        private DateTime tiempoDeSpawn;
+        private float tiempoDeVida;
         internal Boolean ImpactoAUnDestruible;
 
         public Laser(string direccionDeScene, TGCVector3 posicionInicial,TGCVector3 direccion)
@@ -29,7 +30,7 @@ namespace TGC.Group.Model
             this.posicionInicial = posicionInicial;
             this.direccion = direccion;
             this.velocidad = 1;
-            this.tiempoDeSpawn = DateTime.Now;
+            this.tiempoDeVida = 0;
             this.ImpactoAUnDestruible = false;
         }
 
@@ -64,6 +65,7 @@ namespace TGC.Group.Model
             mainMesh.Transform = matrizTransformacion;
             //mainMesh.updateBoundingBox();
             mainMesh.BoundingBox.transform(matrizTransformacion);
+            tiempoDeVida += elapsedTime;
 
         }
 
@@ -102,7 +104,7 @@ namespace TGC.Group.Model
 
         public Boolean SuperoTiempoDeVida(float tiempoLimite)
         {
-            return (DateTime.Now - tiempoDeSpawn).TotalSeconds > tiempoLimite;
+            return tiempoDeVida > tiempoLimite;
         }
         public void ImpactoUnDestruible()
         {
