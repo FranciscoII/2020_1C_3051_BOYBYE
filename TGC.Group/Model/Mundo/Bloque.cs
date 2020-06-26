@@ -10,6 +10,7 @@ using TGC.Core.Direct3D;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Core.Shaders;
+using TGC.Core.Text;
 using TGC.Core.Textures;
 
 namespace TGC.Group.Model
@@ -37,10 +38,10 @@ namespace TGC.Group.Model
         private Texture g_pShadowMap; // Texture to which the shadow map is rendered
         // Shadow map
         private readonly int SHADOWMAP_SIZE = 1024;
-        private readonly float far_plane = 1500f;
-        private readonly float near_plane = 2f;
-        private Texture renderTarget;
-        private Surface depthStencil;
+        private readonly float far_plane = 3000f;
+        private readonly float near_plane = 10f;
+        //private Texture renderTarget;
+        //private Surface depthStencil;
 
         public Bloque(string mediaDir, TGCVector3 posicionInicial,String nombreMapa,List<TGCVector3> posiciones,Nave nave)
         {
@@ -84,8 +85,12 @@ namespace TGC.Group.Model
             g_mShadowProj = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
             D3DDevice.Instance.Device.Transform.Projection = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane).ToMatrix();
             var posicionNave = nave.GetPosicion();
-            g_LightPos = new TGCVector3(this.posicionInicial.X, this.posicionInicial.Y+30, this.posicionInicial.Z+420);
-            g_LightLookAt = new TGCVector3(this.posicionInicial.X, this.posicionInicial.Y, this.posicionInicial.Z + 600);
+            //g_LightPos = new TGCVector3(posicionNave.X, posicionNave.Y+70, posicionNave.Z - 200);
+            //g_LightLookAt = new TGCVector3(posicionNave.X, posicionNave.Y, posicionNave.Z + 100);
+            g_LightPos = new TGCVector3(posicionInicial.X+90,posicionInicial.Y+20,posicionInicial.Z-100);
+            g_LightLookAt = new TGCVector3(posicionInicial.X+90,posicionInicial.Y,posicionInicial.Z);
+
+
 
         }
 
@@ -118,6 +123,7 @@ namespace TGC.Group.Model
                 GameManager.Instance.QuitarRenderizable(this);
                 //Logger.Loggear("Se borro el bloque de posicion: " + this.posicionInicial.ToString() + " nombre: " + this.nombreMapa);
             }
+            
         }
 
         public void Render()
@@ -128,7 +134,10 @@ namespace TGC.Group.Model
 
             //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
             //D3DDevice.Instance.Device.BeginScene();
-            g_LightDir = g_LightLookAt - g_LightPos;
+            //g_LightDir = g_LightLookAt - g_LightPos;
+            g_LightPos.Y = nave.GetPosicion().Y + 50;
+            g_LightPos.Z = nave.GetPosicion().Z;
+            g_LightDir = nave.GetPosicion() - g_LightPos;
             g_LightDir.Normalize();
 
 
@@ -145,11 +154,8 @@ namespace TGC.Group.Model
             //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
             RenderScene(false);
 
-
-
             //D3DDevice.Instance.Device.EndScene();
             //D3DDevice.Instance.Device.Present();
-            
 
 
         }
@@ -202,6 +208,7 @@ namespace TGC.Group.Model
                 if (GameManager.Instance.esVisibleParaLaCamara(T))
                     T.Render();
             }
+
         }
 
 
