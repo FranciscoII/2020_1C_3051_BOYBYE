@@ -139,13 +139,13 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 
 		// sin ningun aa. conviene con smap size >= 512
         float I = (tex2D(g_samShadow, CT) + EPSILON < vPosLight.z / vPosLight.w) ? 0.0f : 1.0f;
-
+        /*
 		// interpolacion standard bi-lineal del shadow map
 		// CT va de 0 a 1, lo multiplico x el tamaño de la textura
 		// la parte fraccionaria indica cuanto tengo que tomar del vecino
 		// conviene cuando el smap size = 256
 		// leo 4 valores
-		/*float2 vecino = frac( CT*SMAP_SIZE);
+		float2 vecino = frac( CT*SMAP_SIZE);
 		float prof = vPosLight.z / vPosLight.w;
 		float s0 = (tex2D( g_samShadow, float2(CT)) + EPSILON < prof)? 0.0f: 1.0f;
 		float s1 = (tex2D( g_samShadow, float2(CT) + float2(1.0/SMAP_SIZE,0))
@@ -159,7 +159,7 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 
 		/*
 		// anti-aliasing del shadow map
-		float I = 0;
+		//float I = 0;
 		float r = 2;
 		for(int i=-r;i<=r;++i)
 			for(int j=-r;j<=r;++j)

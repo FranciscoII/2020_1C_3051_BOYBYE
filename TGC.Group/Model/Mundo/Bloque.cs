@@ -39,7 +39,7 @@ namespace TGC.Group.Model
         // Shadow map
         private readonly int SHADOWMAP_SIZE = 1024;
         private readonly float far_plane = 3000f;
-        private readonly float near_plane = 10f;
+        private readonly float near_plane = 2f;
         //private Texture renderTarget;
         //private Surface depthStencil;
 
@@ -82,8 +82,10 @@ namespace TGC.Group.Model
             // de hecho, un valor mayor a 90 todavia es mejor, porque hasta con 90 grados es muy dificil
             // lograr que los objetos del borde generen sombras
             var aspectRatio = D3DDevice.Instance.AspectRatio;
-            g_mShadowProj = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);
+            g_mShadowProj = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);//9000 era originalmente 5000
+            
             D3DDevice.Instance.Device.Transform.Projection = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane).ToMatrix();
+            
             var posicionNave = nave.GetPosicion();
             //g_LightPos = new TGCVector3(posicionNave.X, posicionNave.Y+70, posicionNave.Z - 200);
             //g_LightLookAt = new TGCVector3(posicionNave.X, posicionNave.Y, posicionNave.Z + 100);
@@ -135,9 +137,14 @@ namespace TGC.Group.Model
             //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
             //D3DDevice.Instance.Device.BeginScene();
             //g_LightDir = g_LightLookAt - g_LightPos;
-            g_LightPos.Y = nave.GetPosicion().Y + 50;
-            g_LightPos.Z = nave.GetPosicion().Z;
-            g_LightDir = nave.GetPosicion() - g_LightPos;
+
+            g_LightPos.X = 105;//mitad del pasillo: 105
+            g_LightPos.Y = 510;
+            g_LightPos.Z = nave.GetPosicion().Z + 10;
+
+            g_LightDir = new TGCVector3(0, -1f, -0.1f);
+            //g_LightDir = new TGCVector3(105,-29,nave.GetPosicion().Z + 30) - g_LightPos;
+            //g_LightDir = new TGCVector3(115, -20, nave.GetPosicion().Z+30) - g_LightPos;
             g_LightDir.Normalize();
 
 
