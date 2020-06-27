@@ -14,7 +14,7 @@ using TGC.Core.Shaders;
 namespace TGC.Group.Model
 {
 
-    class ModeloCompuesto
+    public class ModeloCompuesto
     {
         private readonly List<TgcMesh> meshes;
         private TGCMatrix baseScaleRotation;
@@ -99,6 +99,8 @@ namespace TGC.Group.Model
         }
         private void UpdateEffect(Effect effect,TGCVector3 posicionSol,TGCVector3 posicionCamara,float tiempo)
         {
+            if (meshes[0].Technique == "Blinn")
+                return;
             effect.SetValue("ambientColor", ColorValue.FromColor(Color.White));
             effect.SetValue("diffuseColor", ColorValue.FromColor(Color.LightGray));
             effect.SetValue("specularColor", ColorValue.FromColor(Color.LightGray));
@@ -109,6 +111,7 @@ namespace TGC.Group.Model
             effect.SetValue("posicionSol", TGCVector3.TGCVector3ToFloat3Array(posicionSol));
             effect.SetValue("eyePosition", TGCVector3.TGCVector3ToFloat3Array(posicionCamara));
             effect.SetValue("tiempo", tiempo);
+            
         }
         public void UpdateShader(TGCVector3 posicionSol, TGCVector3 posicionCamara,float tiempo)
         {
@@ -118,9 +121,13 @@ namespace TGC.Group.Model
         {
             baseScaleRotation = TGCMatrix.Scaling(scale);
         }
-        public void CambiarShader(String tech)
+        public void CambiarShader(Effect shader,String tech)
         {
-            TransformarModelo(delegate (TgcMesh unMesh) {unMesh.Technique = tech; });
+            TransformarModelo(delegate (TgcMesh unMesh) { unMesh.Effect = shader; unMesh.Technique = tech; });
+        }
+        public List<TgcMesh> GetMeshes()
+        {
+            return meshes;
         }
     }
 }

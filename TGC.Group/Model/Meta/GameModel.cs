@@ -1,4 +1,4 @@
-using Microsoft.DirectX.DirectInput;
+using Microsoft.DirectX.Direct3D;
 using System.Drawing;
 using System.Windows.Forms;
 using TGC.Core.Camara;
@@ -8,6 +8,7 @@ using TGC.Core.Geometry;
 using TGC.Core.Input;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using TGC.Core.Shaders;
 using TGC.Core.Textures;
 using TGC.Examples.Camara;
 using TGC.Group.Model.Clases2D;
@@ -17,6 +18,8 @@ namespace TGC.Group.Model
 {
     public class GameModel : TGCExample
     {
+
+
         public Entorno EntornoActual { get; set; }
         public GameModel(string mediaDir, string shadersDir) : base(mediaDir, shadersDir)
         {
@@ -30,7 +33,7 @@ namespace TGC.Group.Model
         {
             GameManager.Instance.Frustum = this.Frustum;
             InputDelJugador input = new InputDelJugador(Input);
-            EntornoActual = new EntornoMenu(this,MediaDir,input);
+            EntornoActual = new EntornoMenu(this,MediaDir,input,ShadersDir);
             EntornoActual.Init();
         }
 
@@ -38,15 +41,13 @@ namespace TGC.Group.Model
         {
             PreUpdate();
             EntornoActual.Update(ElapsedTime);
-            PostUpdate();
+             PostUpdate();
         }
 
 
         public override void Render()
         {
-            PreRender();
             EntornoActual.Render();
-            PostRender();
         }
 
         public override void Dispose()
@@ -58,6 +59,14 @@ namespace TGC.Group.Model
         {
             this.Camera = nuevaCamara;
             GameManager.Instance.camaraJuego = nuevaCamara;
+        }
+        public void AntesDelRender()
+        {
+            PreRender();
+        }
+        public void DespuesDelRender()
+        {
+            PostRender();
         }
     }
 }

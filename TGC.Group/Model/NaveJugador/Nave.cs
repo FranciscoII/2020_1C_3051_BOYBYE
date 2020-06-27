@@ -339,7 +339,7 @@ namespace TGC.Group.Model
 
         public void Morir()
         {
-            estaVivo = false;
+            //estaVivo = false;
         }
 
         public void Chocar()
@@ -375,6 +375,10 @@ namespace TGC.Group.Model
         public void updatePosicionSol()
         {
             GameManager.Instance.PosicionSol = new TGCVector3(110, posicion.Y + 10, posicion.Z + 15);
+        }
+        public ModeloCompuesto GetModelo()
+        {
+            return modeloNave;
         }
     }
 }

@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.DirectX.Direct3D;
 using TGC.Core.KeyFrameLoader;
 using TGC.Core.Mathematica;
+using TGC.Core.Shaders;
 
 namespace TGC.Group.Model
 {
@@ -15,6 +17,7 @@ namespace TGC.Group.Model
         protected TGCVector3 posicion;
         protected float timer;
         private bool iniciarAnimacion;
+        private Effect shader;
 
         public NaveGameOver(string mediaDir, TGCVector3 posicionInicial)
         {
@@ -22,6 +25,7 @@ namespace TGC.Group.Model
             posicion = posicionInicial;
             timer = 0;
             iniciarAnimacion = false;
+            shader = TGCShaders.Instance.LoadEffect("..\\..\\Shaders\\" + "Fran.fx");
         }
 
         public void Dispose()
@@ -31,7 +35,7 @@ namespace TGC.Group.Model
 
         public void Init()
         {
-            modeloNave.CambiarShader("NaveGameOver");
+            modeloNave.CambiarShader(shader,"NaveGameOver");
             modeloNave.CambiarRotacion(new TGCVector3(FastMath.ToRad(180), 0,0));
             modeloNave.CambiarEscala(new TGCVector3(0.8f, 0.8f, 0.8f));
             modeloNave.AplicarTransformaciones();
