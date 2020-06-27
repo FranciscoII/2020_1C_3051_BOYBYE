@@ -190,7 +190,9 @@ namespace TGC.Group.Model.Meta
             device.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
             effect.EndPass();
             effect.End();
-            
+
+            gameModel.ShowFPS();
+
             device.EndScene();
             device.Present();
 

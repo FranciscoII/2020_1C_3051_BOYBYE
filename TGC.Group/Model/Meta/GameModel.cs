@@ -68,5 +68,9 @@ namespace TGC.Group.Model
         {
             PostRender();
         }
+        public void ShowFPS()
+        {
+            RenderFPS();
+        }
     }
 }
