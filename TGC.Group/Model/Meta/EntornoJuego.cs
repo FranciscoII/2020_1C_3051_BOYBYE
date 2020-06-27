@@ -104,7 +104,7 @@ namespace TGC.Group.Model.Meta
                 textoDrawer.drawText(textoControles, D3DDevice.Instance.Width / 40, D3DDevice.Instance.Height / 20, Color.White);
             }
             ConfigureBlinnForShip();
-            naveDelJuego.GetModelo().CambiarShader(effect,"Blinn");
+            naveDelJuego.GetModelo().CambiarShader(effect,"Luzbelito");
             //naveDelJuego.GetModelo().Render();
 
             GameManager.Instance.Render();
@@ -120,23 +120,25 @@ namespace TGC.Group.Model.Meta
             //naveDelJuego.GetModelo().CambiarShader(effect,"GlowyObjects");
             //naveDelJuego.GetModelo().Render();
             var meshes = naveDelJuego.GetModelo().GetMeshes();
+            meshes[0].Technique = "GlowyObjects";
             meshes[1].Technique = "GlowyObjects";
             meshes[2].Technique = "GlowyObjects";
-            var mesh = naveDelJuego.GetModelo().GetMesh();
-            mesh.Technique = "GlowyObjects";
-            mesh.Render();
+            //var mesh = naveDelJuego.GetModelo().GetMesh();
+            //mesh.Technique = "GlowyObjects";
+            //mesh.Render();
+            meshes[0].Render();
             meshes[1].Render();
             meshes[2].Render();
 
             device.EndScene();
-            mesh.Technique = "Blinn";
-            meshes[1].Technique = "Blinn";
-            meshes[2].Technique = "Blinn";
+            meshes[0].Technique = "Luzbelito";
+            meshes[1].Technique = "Luzbelito";
+            meshes[2].Technique = "Luzbelito";
             // --------------
             // Aplicamos una pasada de blur horizontal al framebuffer de los objetos brillantes
             // y una pasada vertical
             var passBuffer = glowyObjectsFrameBuffer;
-            for (int index = 0; index < 1; index++)
+            for (int index = 0; index < 15; index++)
             {
                 BeginScene(device, bloomHorizontalFrameBuffer.GetSurfaceLevel(0), depthStencil);
 

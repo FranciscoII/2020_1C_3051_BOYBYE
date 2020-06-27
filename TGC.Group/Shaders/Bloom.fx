@@ -96,6 +96,38 @@ static const float kernel[kernelSize] =
 {
     0.000489, 0.002403, 0.009246, 0.02784, 0.065602, 0.120999, 0.174697, 0.197448, 0.174697, 0.120999, 0.065602, 0.02784, 0.009246, 0.002403, 0.000489
 };
+//-----------Shader propio
+float3 posicionNave;
+float3 posicionSol;
+//Otras variables para la luz de la nave
+float3 ambientColor; //Color RGB para Ambient de la luz
+float3 diffuseColor; //Color RGB para Diffuse de la luz
+float3 specularColor; //Color RGB para Specular de la luz
+float3 lightPosition; //Posicion de la luz
+float tiempo;
+//Input del Vertex Shader
+struct VS_INPUT
+{
+    float4 Position : POSITION0;
+    float3 Normal : NORMAL0;
+    float4 Color : COLOR;
+    float2 Texcoord : TEXCOORD0;
+};
+
+//Output del Vertex Shader
+struct VS_OUTPUT
+{
+    float4 Position : POSITION0;
+    float4 Color : COLOR;
+    float2 Texcoord : TEXCOORD0;
+    float3 worldPosition : TEXCOORD2;
+    float3 worldNormal : TEXCOORD1;
+};
+
+
+
+//------------------------
+
 //Input del Vertex Shader
 struct BlinnVertexShaderInput
 {
@@ -334,5 +366,81 @@ technique Integrate
     {
         VertexShader = compile vs_3_0 VSSimplePropagate();
         PixelShader = compile ps_3_0 PSBloom();
+    }
+}
+//------------------ShaderPropio
+struct VS_INPUT2
+{
+    float4 Position : POSITION0;
+    float3 Normal : NORMAL0;
+    float4 Color : COLOR;
+    float2 Texcoord : TEXCOORD0;
+};
+
+//Output del Vertex Shader
+struct VS_OUTPUT2
+{
+    float4 Position : POSITION0;
+    float4 Color : COLOR;
+    float2 Texcoord : TEXCOORD0;
+    float3 worldPosition : TEXCOORD2;
+    float3 worldNormal : TEXCOORD1;
+};
+
+//Vertex Shader
+VS_OUTPUT2 vertexShader(VS_INPUT2 input)
+{
+    VS_OUTPUT2 output;
+
+	//Proyectar posicion
+    output.Position = mul(input.Position, matWorldViewProj);
+
+	//Enviar color directamente
+    output.Color = input.Color;
+
+	//Enviar Texcoord directamente
+    output.Texcoord = input.Texcoord;
+
+    output.worldPosition = mul(input.Position, matWorld);
+    output.worldNormal = mul(input.Normal, matInverseTransposeWorld).xyz;
+	
+    return output;
+}
+
+
+//------------------------------------------Luzbelito-----------------------------------------
+
+//Pixel Shader
+float4 pixelLuzShader(VS_OUTPUT2 input) : COLOR0
+{
+    input.worldNormal = normalize(input.worldNormal);
+
+    float3 lightDirection = normalize(posicionSol - input.worldPosition);
+    float3 viewDirection = normalize(eyePosition - input.worldPosition);
+
+	// Obtener texel de la textura
+    float4 texelColor = tex2D(diffuseMap, input.Texcoord);
+
+	//Componente Diffuse: N dot L
+    float3 NdotL = dot(input.worldNormal, lightDirection);
+    float3 diffuseLight = KDiffuse * diffuseColor * max(0.0, NdotL);
+
+	//Componente Specular: (R dot V)^shininess
+    float3 reflection = reflect(-lightDirection, input.worldNormal);
+    float3 specularLight = pow(max(0.0, dot(viewDirection, reflection)), shininess) * KSpecular * specularColor;
+
+
+    float4 finalColor = float4(saturate(ambientColor * KAmbient + diffuseLight) * texelColor + specularLight, texelColor.a);
+    return finalColor;
+	
+
+}
+
+technique Luzbelito
+{
+    pass Pass_0
+    {
+        VertexShader = compile vs_3_0 vertexShader();
+        PixelShader = compile ps_3_0 pixelLuzShader();
     }
 }
