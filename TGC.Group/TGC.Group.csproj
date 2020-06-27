@@ -234,6 +234,7 @@
     <Content Include="Death_Star.ico" />
     <Content Include="Media\cajaMadera4.jpg" />
     <Content Include="Media\LogoTGC-TgcScene.xml" />
+    <Content Include="Shaders\ShadowMap.fx" />
     <None Include="Shaders\Bloom.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
