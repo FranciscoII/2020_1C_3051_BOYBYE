@@ -85,13 +85,6 @@ namespace TGC.Group.Model
             g_mShadowProj = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(80), aspectRatio, 50, 5000);//9000 era originalmente 5000
             
             D3DDevice.Instance.Device.Transform.Projection = TGCMatrix.PerspectiveFovLH(Geometry.DegreeToRadian(45.0f), aspectRatio, near_plane, far_plane).ToMatrix();
-            
-            var posicionNave = nave.GetPosicion();
-            //g_LightPos = new TGCVector3(posicionNave.X, posicionNave.Y+70, posicionNave.Z - 200);
-            //g_LightLookAt = new TGCVector3(posicionNave.X, posicionNave.Y, posicionNave.Z + 100);
-            g_LightPos = new TGCVector3(posicionInicial.X+90,posicionInicial.Y+20,posicionInicial.Z-100);
-            g_LightLookAt = new TGCVector3(posicionInicial.X+90,posicionInicial.Y,posicionInicial.Z);
-
 
 
         }
@@ -138,13 +131,9 @@ namespace TGC.Group.Model
             //D3DDevice.Instance.Device.BeginScene();
             //g_LightDir = g_LightLookAt - g_LightPos;
 
-            g_LightPos.X = 105;//mitad del pasillo: 105
-            g_LightPos.Y = 510;
-            g_LightPos.Z = nave.GetPosicion().Z + 10;
-
-            g_LightDir = new TGCVector3(0, -1f, -0.1f);
-            //g_LightDir = new TGCVector3(105,-29,nave.GetPosicion().Z + 30) - g_LightPos;
-            //g_LightDir = new TGCVector3(115, -20, nave.GetPosicion().Z+30) - g_LightPos;
+            g_LightPos = nave.GetPosicion();
+            g_LightDir = nave.GetPosicion();
+            g_LightDir.Z += 10;
             g_LightDir.Normalize();
 
 

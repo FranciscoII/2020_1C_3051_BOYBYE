@@ -129,16 +129,17 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 ) : COLOR
 {
     float3 vLight = normalize(float3(vPos - g_vLightPos));
-    float cono = dot(vLight, g_vLightDir);
+    float cono = dot(vLight, g_vLightDir)*0.85f;
     float4 K = 0.0;
     if (cono > 0.7)
     {
 		// coordenada de textura CT
         float2 CT = 0.5 * vPosLight.xy / vPosLight.w + float2(0.5, 0.5);
         CT.y = 1.0f - CT.y;
-
+        
 		// sin ningun aa. conviene con smap size >= 512
         float I = (tex2D(g_samShadow, CT) + EPSILON < vPosLight.z / vPosLight.w) ? 0.0f : 1.0f;
+        
         /*
 		// interpolacion standard bi-lineal del shadow map
 		// CT va de 0 a 1, lo multiplico x el tamaño de la textura
@@ -157,15 +158,14 @@ float4 PixScene(float2 Tex : TEXCOORD0,
 		float I = lerp( lerp( s0, s1, vecino.x ),lerp( s2, s3, vecino.x ),vecino.y);
 		*/
 
-		/*
+
 		// anti-aliasing del shadow map
 		//float I = 0;
-		float r = 2;
+		float r = 5;
 		for(int i=-r;i<=r;++i)
 			for(int j=-r;j<=r;++j)
 				I += (tex2D( g_samShadow, CT + float2((float)i/SMAP_SIZE, (float)j/SMAP_SIZE) ) + EPSILON < vPosLight.z / vPosLight.w)? 0.0f: 1.0f;
 		I /= (2*r+1)*(2*r+1);
-		*/
 
         if (cono < 0.8)
             I *= 1 - (0.8 - cono) * 10;
