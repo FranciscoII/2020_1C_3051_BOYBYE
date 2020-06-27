@@ -19,6 +19,7 @@ namespace TGC.Group.Model.Meta
         private EscenarioLoader escenarioLoader;
         private TieFighterSpawner tieFighterSpawner;
         private Nave naveDelJuego;
+        private List<Light> lights;
 
         public EntornoJuego(GameModel gameModel, string mediaDir, InputDelJugador input, string shaderDir) : base(gameModel, mediaDir, input, shaderDir)
         {
@@ -40,18 +41,26 @@ namespace TGC.Group.Model.Meta
             tieFighterSpawner = new TieFighterSpawner(mediaDir, naveDelJuego);
             GameManager.Instance.ReanudarOPausarJuego();
             CreateFullScreenQuad();
-            CreateRenderTarget();
+            //CreateRenderTarget();
             InitializeFrameBuffers();
+            InitializeLights();
             effect = TGCShaders.Instance.LoadEffect(shaderDir + "Bloom.fx");
+            effect.SetValue("screen_dx", D3DDevice.Instance.Device.PresentationParameters.BackBufferWidth);
+            effect.SetValue("screen_dy", D3DDevice.Instance.Device.PresentationParameters.BackBufferHeight);
+
         }
 
         public override void Update(float elapsedTime)
         {
             //UPDATE del Bloom-----------------------
             effect.SetValue("scene", true);
-            effect.SetValue("bloom", false);
-            effect.SetValue("toneMapping", false);
+            effect.SetValue("bloom", true);
+            effect.SetValue("toneMapping", true);
             effect.SetValue("eyePosition", TGCVector3.TGCVector3ToFloat3Array(GameManager.Instance.EyePosition()));
+            InitializeLights();
+            int index = 0;
+            lights.ForEach(light => light.SetLight(index++, effect));
+            effect.SetValue("lightCount", lights.Count);
             //-------------------
 
             if (input.HayInputDePausa())
@@ -68,6 +77,9 @@ namespace TGC.Group.Model.Meta
 
         public override void Dispose()
         {
+            depthStencil.Dispose();
+            effect.Dispose();
+            glowyObjectsFrameBuffer.Dispose();
             GameManager.Instance.Dispose();
         }
         public override void Render()
@@ -82,7 +94,7 @@ namespace TGC.Group.Model.Meta
 
             BeginScene(device, sceneFrameBuffer.GetSurfaceLevel(0), depthStencil);
 
-            //ACA RENDEREAR LA MIERDA XDXDCXDXDXD
+            //ACA RENDEREAR 
             if (GameManager.Instance.estaPausado)
             {
                 string textoControles = "Controles:\nWASD: Moverse\nQ: Rollear\nE: Voltearse\nShift: Acelerar\nCtrl: Desacelerar\nEnter: Pausar/Despausar";
@@ -91,6 +103,10 @@ namespace TGC.Group.Model.Meta
                 textoDrawer.changeFont(new System.Drawing.Font("Calibri", 0.009765625f * D3DDevice.Instance.Width));
                 textoDrawer.drawText(textoControles, D3DDevice.Instance.Width / 40, D3DDevice.Instance.Height / 20, Color.White);
             }
+            ConfigureBlinnForShip();
+            naveDelJuego.GetModelo().CambiarShader(effect,"Blinn");
+            //naveDelJuego.GetModelo().Render();
+
             GameManager.Instance.Render();
 
 
@@ -98,19 +114,29 @@ namespace TGC.Group.Model.Meta
 
             // --------------
             // Guardamos lo brillante de la escena en un framebuffer
-            /*
+            
             BeginScene(device, glowyObjectsFrameBuffer.GetSurfaceLevel(0), depthStencil);
 
-            EntornoActual.GetNave().Technique = "GlowyObjects";
-            trafficLight.Render();
+            //naveDelJuego.GetModelo().CambiarShader(effect,"GlowyObjects");
+            //naveDelJuego.GetModelo().Render();
+            var meshes = naveDelJuego.GetModelo().GetMeshes();
+            meshes[1].Technique = "GlowyObjects";
+            meshes[2].Technique = "GlowyObjects";
+            var mesh = naveDelJuego.GetModelo().GetMesh();
+            mesh.Technique = "GlowyObjects";
+            mesh.Render();
+            meshes[1].Render();
+            meshes[2].Render();
 
-            EndScene(device);
-            */
+            device.EndScene();
+            mesh.Technique = "Blinn";
+            meshes[1].Technique = "Blinn";
+            meshes[2].Technique = "Blinn";
             // --------------
             // Aplicamos una pasada de blur horizontal al framebuffer de los objetos brillantes
             // y una pasada vertical
             var passBuffer = glowyObjectsFrameBuffer;
-            for (int index = 0; index < 10; index++)
+            for (int index = 0; index < 1; index++)
             {
                 BeginScene(device, bloomHorizontalFrameBuffer.GetSurfaceLevel(0), depthStencil);
 
@@ -148,9 +174,9 @@ namespace TGC.Group.Model.Meta
 
             // --------------
             // Este postprocesado integra lo blureado a la escena
-
+            
             BeginScene(device, screenSurface, originalDepthStencil);
-
+            
             effect.Technique = "Integrate";
             device.VertexFormat = CustomVertex.PositionTextured.Format;
             device.SetStreamSource(0, fullScreenQuad, 0);
@@ -162,41 +188,51 @@ namespace TGC.Group.Model.Meta
             device.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
             effect.EndPass();
             effect.End();
-
+            
             device.EndScene();
             device.Present();
 
         }
-
-        private Light[] lights =
+        private void InitializeLights()
         {
+            lights = new List<Light>();
+            var posNave = naveDelJuego.GetPosicion();
             // Red
-            new Light
+            var red = new Light
             {
                 Enabled = true,
-                Position = new TGCVector3(115f, -18f, 455f),
+                Position = new TGCVector3(posNave.X, posNave.Y, posNave.Z),
                 AmbientColor = new TGCVector3(0.2f, 0.1f, 0.1f),
                 DiffuseColor = new TGCVector3(1f, 0.0f, 0.0f),
                 SpecularColor = new TGCVector3(0.9f, 0.8f, 0.8f),
-            },
-            // Yellow
-            new Light
+            };
+            var yellow = new Light
             {
                 Enabled = true,
-                Position = new TGCVector3(115f, -25f, 455f),
+                Position = new TGCVector3(posNave.X+0.5f, posNave.Y, posNave.Z),
                 AmbientColor = new TGCVector3(0.2f, 0.2f, 0.05f),
                 DiffuseColor = new TGCVector3(1f, 1f, 0f),
                 SpecularColor = new TGCVector3(0.85f, 0.85f, 0.65f)
-            },
-            // Green
-            new Light
+            };
+            var green = new Light
             {
                 Enabled = true,
-                Position = new TGCVector3(115f, -22f, 455f),
-                AmbientColor = new TGCVector3(0.05f, 0.2f, 0.05f),
-                DiffuseColor = new TGCVector3(0f, 1f, 0f),
-                SpecularColor = new TGCVector3(0.65f, 0.9f, 0.65f)
-            }
-    };
+                Position = new TGCVector3(posNave.X, posNave.Y, posNave.Z),
+                AmbientColor = new TGCVector3(0.2f, 0.1f, 0.1f),
+                DiffuseColor = new TGCVector3(1f, 0.0f, 0.0f),
+                SpecularColor = new TGCVector3(0.9f, 0.8f, 0.8f),
+            };
+            lights.Add(red);
+            //lights.Add(yellow);
+            //lights.Add(green);
+        }
+
+        private void ConfigureBlinnForShip()
+        {
+            effect.SetValue("KAmbient", 0.3f);
+            effect.SetValue("KDiffuse", 0.6f);
+            effect.SetValue("KSpecular", 0.5f);
+            effect.SetValue("shininess", 10f);
+        }
     }
 }

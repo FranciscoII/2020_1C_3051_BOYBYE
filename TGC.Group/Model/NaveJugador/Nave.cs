@@ -376,6 +376,10 @@ namespace TGC.Group.Model
         {
             GameManager.Instance.PosicionSol = new TGCVector3(110, posicion.Y + 10, posicion.Z + 15);
         }
+        public ModeloCompuesto GetModelo()
+        {
+            return modeloNave;
+        }
     }
 }
 
