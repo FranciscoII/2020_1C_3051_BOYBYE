@@ -154,6 +154,7 @@
     <Compile Include="Model\Meta\TgcThirdPersonCamera.cs" />
     <Compile Include="Model\Meta\GameModel.cs" />
     <Compile Include="Model\Colisionables\TieFighter.cs" />
+    <Compile Include="Model\TieFighterDecorativo.cs" />
     <Compile Include="Model\TieFighterSpawner.cs" />
     <Compile Include="Model\Colisionables\Torreta.cs" />
     <Compile Include="Program.cs" />
