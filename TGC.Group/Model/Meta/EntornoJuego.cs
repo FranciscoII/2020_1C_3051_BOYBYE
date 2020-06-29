@@ -8,6 +8,7 @@ using Microsoft.DirectX.Direct3D;
 using TGC.Core.Direct3D;
 using TGC.Core.Mathematica;
 using TGC.Core.Shaders;
+using TGC.Core.Sound;
 using TGC.Core.Text;
 using TGC.Examples.Camara;
 using TGC.Group.Model.Clases2D;
@@ -20,6 +21,7 @@ namespace TGC.Group.Model.Meta
         private TieFighterSpawner tieFighterSpawner;
         private Nave naveDelJuego;
         private List<Light> lights;
+        private TgcMp3Player tgcMp3Player;
 
         public EntornoJuego(GameModel gameModel, string mediaDir, InputDelJugador input, string shaderDir) : base(gameModel, mediaDir, input, shaderDir)
         {
@@ -47,7 +49,9 @@ namespace TGC.Group.Model.Meta
             effect = TGCShaders.Instance.LoadEffect(shaderDir + "Bloom.fx");
             effect.SetValue("screen_dx", D3DDevice.Instance.Device.PresentationParameters.BackBufferWidth);
             effect.SetValue("screen_dy", D3DDevice.Instance.Device.PresentationParameters.BackBufferHeight);
-
+            tgcMp3Player = new TgcMp3Player();
+            tgcMp3Player.FileName = mediaDir + "tema.mp3";
+            tgcMp3Player.play(true);
         }
 
         public override void Update(float elapsedTime)
@@ -65,6 +69,7 @@ namespace TGC.Group.Model.Meta
 
             if (input.HayInputDePausa())
             {
+                
                 GameManager.Instance.ReanudarOPausarJuego();
             }
 
@@ -237,6 +242,13 @@ namespace TGC.Group.Model.Meta
             effect.SetValue("KDiffuse", 0.6f);
             effect.SetValue("KSpecular", 0.5f);
             effect.SetValue("shininess", 10f);
+        }
+
+        public override void CambiarEntorno(Entorno nuevoEntorno)
+        {
+            tgcMp3Player.stop();
+            tgcMp3Player.closeFile();
+            base.CambiarEntorno(nuevoEntorno);
         }
     }
 }

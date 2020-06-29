@@ -55,7 +55,8 @@ namespace TGC.Group.Model.Meta
         abstract public void Update(float elapsedTime);
         abstract public void  Render();
         abstract public void Dispose();
-        internal void CambiarEntorno(Entorno nuevoEntorno)
+
+        public virtual void CambiarEntorno(Entorno nuevoEntorno)
         {
             this.Dispose();
             nuevoEntorno.Init();
