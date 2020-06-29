@@ -10,7 +10,7 @@ namespace TGC.Group.Model
     class LaserDecorativo : Laser
 
     {
-        public LaserDecorativo(string direccionDeScene, TGCVector3 posicionInicial, TGCVector3 direccion):base(direccionDeScene,posicionInicial,direccion)
+        public LaserDecorativo(string mediaDir,string direccionDeScene, TGCVector3 posicionInicial, TGCVector3 direccion):base(mediaDir,direccionDeScene,posicionInicial,direccion)
         {
         }
         public override void Update(float elapsedTime)
