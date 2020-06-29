@@ -9,6 +9,7 @@ using TGC.Core.BoundingVolumes;
 using TGC.Core.Collision;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
+using TGC.Core.Sound;
 
 namespace TGC.Group.Model
 {
@@ -23,8 +24,9 @@ namespace TGC.Group.Model
         protected TgcMesh mainMesh;
         private float tiempoDeVida;
         internal Boolean ImpactoAUnDestruible;
+        string mediaDir;
 
-        public Laser(string direccionDeScene, TGCVector3 posicionInicial,TGCVector3 direccion)
+        public Laser(string mediaDir, string direccionDeScene, TGCVector3 posicionInicial,TGCVector3 direccion)
         {
             this.direccionDeScene = direccionDeScene;
             this.posicionInicial = posicionInicial;
@@ -32,6 +34,7 @@ namespace TGC.Group.Model
             this.velocidad = 1;
             this.tiempoDeVida = 0;
             this.ImpactoAUnDestruible = false;
+            this.mediaDir = mediaDir;
         }
 
         public void Init()

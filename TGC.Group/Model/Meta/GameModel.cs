@@ -9,6 +9,7 @@ using TGC.Core.Input;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Core.Shaders;
+using TGC.Core.Sound;
 using TGC.Core.Textures;
 using TGC.Examples.Camara;
 using TGC.Group.Model.Clases2D;
@@ -18,7 +19,6 @@ namespace TGC.Group.Model
 {
     public class GameModel : TGCExample
     {
-
 
         public Entorno EntornoActual { get; set; }
         public GameModel(string mediaDir, string shadersDir) : base(mediaDir, shadersDir)
@@ -35,6 +35,7 @@ namespace TGC.Group.Model
             InputDelJugador input = new InputDelJugador(Input);
             EntornoActual = new EntornoMenu(this,MediaDir,input,ShadersDir);
             EntornoActual.Init();
+            GameManager.Instance.SetearDevice(DirectSound.DsDevice);
         }
 
         public override void Update()

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Timers;
+using TGC.Core.Sound;
 
 namespace TGC.Group.Model
 {
@@ -28,8 +29,10 @@ namespace TGC.Group.Model
         private string mediaDir;
         private float segundosDesdeUltimoRoll;
         private float segundosDesdeUltimoDisparo;
+        private float segundosDesdeUltimoSonido;
         private int cantidadVida;
         private HUD hud;
+        private TgcMp3Player mp3Player;
 
         public Nave(string mediaDir, TGCVector3 posicionInicial, InputDelJugador input)
         {
@@ -47,8 +50,10 @@ namespace TGC.Group.Model
             this.estaVivo = true;
             this.segundosDesdeUltimoRoll = 100;
             this.segundosDesdeUltimoDisparo = 100;
+            this.segundosDesdeUltimoSonido = 100;
             this.cantidadVida = 100;
             this.hud = new HUD(mediaDir);
+            this.mp3Player = new TgcMp3Player();
         }
 
 
@@ -66,6 +71,7 @@ namespace TGC.Group.Model
                 return;
             segundosDesdeUltimoRoll += elapsedTime;
             segundosDesdeUltimoDisparo += elapsedTime;
+            segundosDesdeUltimoSonido += elapsedTime;
 
             if (cantidadVida <= 0)
             {
@@ -317,7 +323,7 @@ namespace TGC.Group.Model
 
         private Boolean SePuedeDisparar()
         {
-            return segundosDesdeUltimoDisparo > 0.1f && estaVivo;
+            return segundosDesdeUltimoDisparo > 0.4f && estaVivo;
         }
         private void Disparar()
         {
@@ -325,11 +331,15 @@ namespace TGC.Group.Model
             {
                 TGCVector3 posicionLaser = new TGCVector3(GetPosicion());
                 posicionLaser.Z += 10f;
-                GameManager.Instance.AgregarRenderizable(new LaserDeJugador(mediaDir + "Xwing\\laserBueno-TgcScene.xml", posicionLaser, new TGCVector3(0, 0, 1)));
+                GameManager.Instance.AgregarRenderizable(new LaserDeJugador(mediaDir,mediaDir + "Xwing\\laserBueno-TgcScene.xml", posicionLaser, new TGCVector3(0, 0, 1)));
                 segundosDesdeUltimoDisparo = 0;
+                HacerSonidoLaser();
             }
+        }
 
-
+        private void HacerSonidoLaser()
+        {
+            GameManager.Instance.ReproducirSonido(mediaDir + "laser.wav",posicion);
         }
 
         public Boolean ColisionaConColisionable(Colisionable unColisionable)

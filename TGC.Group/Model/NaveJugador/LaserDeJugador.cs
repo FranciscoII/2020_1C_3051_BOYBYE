@@ -10,7 +10,7 @@ namespace TGC.Group.Model
 {
     class LaserDeJugador : Laser
     {
-        public LaserDeJugador(string direccionDeScene, TGCVector3 posicionInicial, TGCVector3 direccion) : base(direccionDeScene,posicionInicial,direccion)
+        public LaserDeJugador(string mediaDir, string direccionDeScene, TGCVector3 posicionInicial, TGCVector3 direccion) : base(mediaDir, direccionDeScene,posicionInicial,direccion)
         {
             this.velocidad = 10f;
         }
