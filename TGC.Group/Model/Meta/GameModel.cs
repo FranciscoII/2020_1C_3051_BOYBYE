@@ -34,6 +34,7 @@ namespace TGC.Group.Model
             GameManager.Instance.Frustum = this.Frustum;
             InputDelJugador input = new InputDelJugador(Input);
             EntornoActual = new EntornoMenu(this,MediaDir,input,ShadersDir);
+            //EntornoActual = new EntornoGameOver(this, MediaDir, input, ShadersDir);
             EntornoActual.Init();
             GameManager.Instance.SetearDevice(DirectSound.DsDevice);
         }

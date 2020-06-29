@@ -52,8 +52,10 @@ namespace TGC.Group.Model.Meta
 
         public override void Render()
         {
+            gameModel.AntesDelRender();
             GameManager.Instance.Render();
             menuGameOver.DibujarMenu();
+            gameModel.DespuesDelRender();
 
         }
         public override void Dispose()

@@ -349,7 +349,7 @@ namespace TGC.Group.Model
 
         public void Morir()
         {
-            //estaVivo = false;
+            estaVivo = false;
         }
 
         public void Chocar()
