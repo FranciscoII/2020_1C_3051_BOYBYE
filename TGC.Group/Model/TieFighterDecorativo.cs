@@ -105,7 +105,7 @@ namespace TGC.Group.Model
             //TGCVector3 direccionDisparo = posicionNave - posicion;
             if (!esTie && coolDownDisparo > 1f)
             {
-                var laser = new Laser(mediaDir + "Xwing\\laser-TgcScene.xml", posicion, versorDirector);
+                var laser = new LaserDecorativo(mediaDir + "Xwing\\laser-TgcScene.xml", posicion, versorDirector);
                 laser.SetVelocidad(3f);
                 GameManager.Instance.AgregarRenderizable(laser);
                 coolDownDisparo = 0f;
