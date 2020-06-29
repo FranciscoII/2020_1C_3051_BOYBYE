@@ -123,6 +123,8 @@
     </Compile>
     <Compile Include="Model\CamaraDelJuego.cs" />
     <Compile Include="Model\Clases2D\MenuGameOver.cs" />
+    <Compile Include="Model\EnumPosiciones.cs" />
+    <Compile Include="Model\LaserDecorativo.cs" />
     <Compile Include="Model\Meta\EntornoGameOver.cs" />
     <Compile Include="Model\Mundo\SkyboxMenu.cs" />
     <Compile Include="Model\NaveDeMenu.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="Model\Meta\TgcThirdPersonCamera.cs" />
     <Compile Include="Model\Meta\GameModel.cs" />
     <Compile Include="Model\Colisionables\TieFighter.cs" />
+    <Compile Include="Model\TieFighterDecorativo.cs" />
     <Compile Include="Model\TieFighterSpawner.cs" />
     <Compile Include="Model\Colisionables\Torreta.cs" />
     <Compile Include="Program.cs" />

@@ -58,8 +58,23 @@ namespace TGC.Group.Model
         }
         public void AgregarPosicionLibre(TGCVector2 posicionLibre)
         {
-            posicionesSpawn.Add(posicionLibre); //No funciona pero no importa.
-            //Solo spawnearan 4 tie fighters
+            posicionesSpawn.Add(posicionLibre);
+        }
+        public void SpawnTieFighterDecorativo()
+        {
+            var posNave = nave.GetPosicion();
+            TGCVector3 posicionSalida = new TGCVector3(320, 6, posNave.Z+140);
+            TieFighterDecorativo tie = new TieFighterDecorativo(mediaDir,posicionSalida,true,nave,EnumPosiciones.DERECHA);
+            TGCVector3 posSalida2 = new TGCVector3(325,7,posNave.Z+140);
+            TieFighterDecorativo xwing = new TieFighterDecorativo(mediaDir, posSalida2, false,nave, EnumPosiciones.DERECHA);
+            GameManager.Instance.AgregarRenderizable(tie);
+            GameManager.Instance.AgregarRenderizable(xwing);
+            TGCVector3 posSalida3 = new TGCVector3(-300, 7, posNave.Z + 170);
+            TGCVector3 posSalida4 = new TGCVector3(-305, 7, posNave.Z + 170);
+            TieFighterDecorativo tie2 = new TieFighterDecorativo(mediaDir, posSalida3, true, nave, EnumPosiciones.IZQUIERDA);
+            TieFighterDecorativo xwing2 = new TieFighterDecorativo(mediaDir, posSalida4, false, nave, EnumPosiciones.IZQUIERDA);
+            GameManager.Instance.AgregarRenderizable(tie2);
+            GameManager.Instance.AgregarRenderizable(xwing2);
         }
     }
 }
