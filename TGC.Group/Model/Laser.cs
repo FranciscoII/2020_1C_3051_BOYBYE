@@ -110,5 +110,9 @@ namespace TGC.Group.Model
         {
             this.ImpactoAUnDestruible = true;
         }
+        public void SetVelocidad(float vel)
+        {
+            this.velocidad = vel;
+        }
     }
 }

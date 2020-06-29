@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="Model\CamaraDelJuego.cs" />
     <Compile Include="Model\Clases2D\MenuGameOver.cs" />
+    <Compile Include="Model\EnumPosiciones.cs" />
     <Compile Include="Model\Meta\EntornoGameOver.cs" />
     <Compile Include="Model\Mundo\SkyboxMenu.cs" />
     <Compile Include="Model\NaveDeMenu.cs" />

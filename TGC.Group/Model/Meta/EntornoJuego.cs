@@ -39,6 +39,7 @@ namespace TGC.Group.Model.Meta
             GameManager.Instance.AgregarRenderizable(skybox);
             escenarioLoader = new EscenarioLoader(mediaDir, naveDelJuego);
             tieFighterSpawner = new TieFighterSpawner(mediaDir, naveDelJuego);
+            tieFighterSpawner.SpawnTieFighterDecorativo();
             GameManager.Instance.ReanudarOPausarJuego();
             CreateFullScreenQuad();
             //CreateRenderTarget();

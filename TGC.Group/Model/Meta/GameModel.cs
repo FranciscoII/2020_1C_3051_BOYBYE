@@ -9,6 +9,7 @@ using TGC.Core.Input;
 using TGC.Core.Mathematica;
 using TGC.Core.SceneLoader;
 using TGC.Core.Shaders;
+using TGC.Core.Sound;
 using TGC.Core.Textures;
 using TGC.Examples.Camara;
 using TGC.Group.Model.Clases2D;

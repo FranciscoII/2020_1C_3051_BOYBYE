@@ -55,18 +55,20 @@ namespace TGC.Group.Model
             TieFighter tieFighter = new TieFighter(mediaDir, posicionTie, nave, this);
             posicionesSpawn.Remove(posicionRandom);
             GameManager.Instance.AgregarRenderizable(tieFighter);
-            SpawnTieFighterDecorativo();
         }
         public void AgregarPosicionLibre(TGCVector2 posicionLibre)
         {
             posicionesSpawn.Add(posicionLibre);
         }
-        private void SpawnTieFighterDecorativo()
+        public void SpawnTieFighterDecorativo()
         {
             var posNave = nave.GetPosicion();
-            TGCVector3 posicionSalida = new TGCVector3(140, 3, posNave.Z+130);
-            TieFighterDecorativo tie = new TieFighterDecorativo(mediaDir,posicionSalida,this);
+            TGCVector3 posicionSalida = new TGCVector3(320, 6, posNave.Z+140);
+            TieFighterDecorativo tie = new TieFighterDecorativo(mediaDir,posicionSalida,true,nave,EnumPosiciones.DERECHA);
+            TGCVector3 posSalida2 = new TGCVector3(326,7,posNave.Z+140);
+            TieFighterDecorativo xwing = new TieFighterDecorativo(mediaDir, posSalida2, false,nave, EnumPosiciones.DERECHA);
             GameManager.Instance.AgregarRenderizable(tie);
+            GameManager.Instance.AgregarRenderizable(xwing);
         }
     }
 }

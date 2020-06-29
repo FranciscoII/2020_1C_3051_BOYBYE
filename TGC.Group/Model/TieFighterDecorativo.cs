@@ -21,17 +21,26 @@ namespace TGC.Group.Model
         private TGCMatrix matrizPosicion;
         private TGCMatrix matrizRotacion;
         private float coolDownDisparo;
-        private TieFighterSpawner spawner;
         private TgcMesh mainMesh;
+        private Nave nave;
+        private TGCVector3 posicionInicial;
+        private EnumPosiciones enumPosiciones;
+        private TGCVector3 versorDirector;
+        private bool esTie;
 
-
-        public TieFighterDecorativo(string mediaDir, TGCVector3 posicionInicial, TieFighterSpawner spawner)
+        public TieFighterDecorativo(string mediaDir, TGCVector3 posicionInicial, bool esTie,Nave nave,EnumPosiciones Salida)
         {
             this.mediaDir = mediaDir;
             this.posicion = posicionInicial;
-            this.modeloNave = new ModeloCompuesto(mediaDir + "XWing\\xwing-TgcScene.xml", posicion);
+            this.posicionInicial = posicionInicial;
+            this.esTie = esTie;
+            if(esTie)
+                this.modeloNave = new ModeloCompuesto(mediaDir + "XWing\\xwing-TgcScene.xml", posicion);
+            else
+                this.modeloNave = new ModeloCompuesto(mediaDir + "XWing\\X-Wing-TgcScene.xml", posicion);
             coolDownDisparo = 0f;
-            this.spawner = spawner;
+            this.nave = nave;
+            this.enumPosiciones = Salida;
         }
 
 
@@ -43,17 +52,27 @@ namespace TGC.Group.Model
             TGCQuaternion rotacionInicial = TGCQuaternion.RotationAxis(new TGCVector3(0.0f, 1.0f, 0.0f), Geometry.DegreeToRadian(90f));
             matrizRotacion = TGCMatrix.RotationTGCQuaternion(rotacionInicial);
             mainMesh = modeloNave.GetMesh();
+            ConfigurarParaSalida();
         }
 
         public void Update(float elapsedTime)
         {
             if (GameManager.Instance.estaPausado)
                 return;
+            var pos = nave.GetPosicion();
+            if (this.mainMesh.Position.X < -250)
+            {
+                this.posicion = new TGCVector3(this.posicionInicial.X, this.posicionInicial.Y, pos.Z + 185);
+                modeloNave.CambiarPosicion(this.posicion);
+                //mainMesh.Position = new TGCVector3(175, 3, pos.Z + 135);
+                return;
+            }
+                
 
             var posicionDisparo = new TGCVector3(posicion);
             posicionDisparo.Z += 10;
 
-            modeloNave.CambiarRotacion(new TGCVector3(0f, Geometry.DegreeToRadian(135f), 0f));
+            //modeloNave.CambiarRotacion(new TGCVector3(0f, Geometry.DegreeToRadian(135f), 0f));
 
             SeguirTrayectoria(elapsedTime);
             Disparar(posicionDisparo, elapsedTime);
@@ -75,25 +94,37 @@ namespace TGC.Group.Model
 
         private void SeguirTrayectoria(float elapsedTime)
         {
-            TGCVector3 versorDirector = new TGCVector3(-1, 0, 1);
             TGCVector3 movimientoDelFrame = new TGCVector3(0, 0, 0);
-            TGCVector3 movimientoAdelante = new TGCVector3(0, 0, 0);
-            movimientoDelFrame += versorDirector + movimientoAdelante;
-            movimientoDelFrame *= 60f * elapsedTime;
+            movimientoDelFrame += versorDirector;
+            movimientoDelFrame *= 35f * elapsedTime;
             posicion += movimientoDelFrame;
             modeloNave.CambiarPosicion(posicion);
         }
         private void Disparar(TGCVector3 posicionNave, float tiempoTranscurrido)
         {
             coolDownDisparo += tiempoTranscurrido;
-            TGCVector3 direccionDisparo = posicionNave - posicion;
-            if (coolDownDisparo > 4f)
+            //TGCVector3 direccionDisparo = posicionNave - posicion;
+            if (!esTie && coolDownDisparo > 0.5f)
             {
-                //GameManager.Instance.AgregarRenderizable(new LaserEnemigo(mediaDir, posicion, direccionDisparo, naveDelJugador));
+                var laser = new Laser(mediaDir + "Xwing\\laser-TgcScene.xml", posicion, versorDirector);
+                laser.SetVelocidad(3f);
+                GameManager.Instance.AgregarRenderizable(laser);
                 coolDownDisparo = 0f;
             }
-
-
+        }
+        private void ConfigurarParaSalida()
+        {
+            switch (enumPosiciones)
+            {
+                case EnumPosiciones.IZQUIERDA:
+                    versorDirector = new TGCVector3(1f, 0f, 1.5f);
+                    modeloNave.CambiarRotacion(new TGCVector3(0f, Geometry.DegreeToRadian(-135f), 0f));
+                    break;
+                case EnumPosiciones.DERECHA:
+                    versorDirector = new TGCVector3(-1f, 0f, 1.5f);
+                    modeloNave.CambiarRotacion(new TGCVector3(0f, Geometry.DegreeToRadian(135f), 0f));
+                    break;
+            }
         }
 
 
