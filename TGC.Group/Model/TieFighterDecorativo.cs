@@ -60,11 +60,10 @@ namespace TGC.Group.Model
             if (GameManager.Instance.estaPausado)
                 return;
             var pos = nave.GetPosicion();
-            if (this.mainMesh.Position.X < -250)
+            if (EstaFueraDelRango())
             {
                 this.posicion = new TGCVector3(this.posicionInicial.X, this.posicionInicial.Y, pos.Z + 185);
                 modeloNave.CambiarPosicion(this.posicion);
-                //mainMesh.Position = new TGCVector3(175, 3, pos.Z + 135);
                 return;
             }
                 
@@ -104,7 +103,7 @@ namespace TGC.Group.Model
         {
             coolDownDisparo += tiempoTranscurrido;
             //TGCVector3 direccionDisparo = posicionNave - posicion;
-            if (!esTie && coolDownDisparo > 0.5f)
+            if (!esTie && coolDownDisparo > 1f)
             {
                 var laser = new Laser(mediaDir + "Xwing\\laser-TgcScene.xml", posicion, versorDirector);
                 laser.SetVelocidad(3f);
@@ -117,7 +116,7 @@ namespace TGC.Group.Model
             switch (enumPosiciones)
             {
                 case EnumPosiciones.IZQUIERDA:
-                    versorDirector = new TGCVector3(1f, 0f, 1.5f);
+                    versorDirector = new TGCVector3(1.5f, 0f, 1.5f);
                     modeloNave.CambiarRotacion(new TGCVector3(0f, Geometry.DegreeToRadian(-135f), 0f));
                     break;
                 case EnumPosiciones.DERECHA:
@@ -125,6 +124,20 @@ namespace TGC.Group.Model
                     modeloNave.CambiarRotacion(new TGCVector3(0f, Geometry.DegreeToRadian(135f), 0f));
                     break;
             }
+        }
+        private bool EstaFueraDelRango()
+        {
+            var ret = false;
+            switch (enumPosiciones)
+            {
+                case EnumPosiciones.IZQUIERDA:
+                    ret = this.mainMesh.Position.X > 500;
+                    break;
+                case EnumPosiciones.DERECHA:
+                    ret = this.mainMesh.Position.X < -250;
+                    break;
+            }
+            return ret;
         }
 
 
