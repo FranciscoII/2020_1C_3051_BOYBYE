@@ -8,6 +8,7 @@ using Microsoft.DirectX.Direct3D;
 using TGC.Core.Camara;
 using TGC.Core.Direct3D;
 using TGC.Core.Mathematica;
+using TGC.Core.Sound;
 using TGC.Core.Text;
 using TGC.Examples.Camara;
 using TGC.Group.Model.Clases2D;
@@ -20,6 +21,8 @@ namespace TGC.Group.Model.Meta
         private MenuGameOver menuGameOver;
         private TgcCamera camaraDeMenu;
         private NaveGameOver nave;
+        private TgcMp3Player tgcMp3Player;
+
         public EntornoGameOver(GameModel gameModel, string mediaDir, InputDelJugador input, string shaderDir) : base(gameModel, mediaDir, input, shaderDir)
         {
             menuGameOver = new MenuGameOver(mediaDir);
@@ -36,6 +39,9 @@ namespace TGC.Group.Model.Meta
 
             gameModel.CambiarCamara(camaraDeMenu);
             GameManager.Instance.PosicionSol = new TGCVector3(3, 15, -1);
+            tgcMp3Player = new TgcMp3Player();
+            tgcMp3Player.FileName = mediaDir + "death-music.mp3";
+            tgcMp3Player.play(false);
         }
 
         public override void Update(float elapsedTime)
@@ -61,6 +67,12 @@ namespace TGC.Group.Model.Meta
         public override void Dispose()
         {
             GameManager.Instance.Dispose();
+        }
+        public override void CambiarEntorno(Entorno nuevoEntorno)
+        {
+            tgcMp3Player.stop();
+            tgcMp3Player.closeFile();
+            base.CambiarEntorno(nuevoEntorno);
         }
     }
 }

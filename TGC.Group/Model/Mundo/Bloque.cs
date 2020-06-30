@@ -158,6 +158,7 @@ namespace TGC.Group.Model
         public void RenderShadowMap()
         {
             // Calculo la matriz de view de la luz
+            effect.SetValue("posNave", new TGCVector4(nave.GetPosicion().X, nave.GetPosicion().Y, nave.GetPosicion().Z, 1));
             effect.SetValue("g_vLightPos", new TGCVector4(g_LightPos.X, g_LightPos.Y, g_LightPos.Z, 1));
             effect.SetValue("g_vLightDir", new TGCVector4(g_LightDir.X, g_LightDir.Y, g_LightDir.Z, 1));
             g_LightView = TGCMatrix.LookAtLH(g_LightPos, g_LightPos + g_LightDir, new TGCVector3(0, 0, 1));
