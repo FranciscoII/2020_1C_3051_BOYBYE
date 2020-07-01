@@ -43,7 +43,7 @@ namespace TGC.Group.Model.Meta
             tgcMp3Player.FileName = mediaDir + "death-music.mp3";
             tgcMp3Player.play(false);
         }
-
+        
         public override void Update(float elapsedTime)
         {
             if (input.HayInputDePausa())//Enter

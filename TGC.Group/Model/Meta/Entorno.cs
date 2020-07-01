@@ -40,7 +40,6 @@ namespace TGC.Group.Model.Meta
                 effect.SetValue("lights[" + index + "].AmbientColor", TGCVector3.TGCVector3ToFloat3Array(AmbientColor));
             }
         }
-        //---
 
 
         public Entorno(GameModel gameModel,string mediaDir, InputDelJugador input,string shaderDir)

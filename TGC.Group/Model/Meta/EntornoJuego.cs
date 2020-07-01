@@ -31,8 +31,6 @@ namespace TGC.Group.Model.Meta
         {
             var posicionInicialDeNave = new TGCVector3(105, -15, 420);
             naveDelJuego = new Nave(mediaDir, posicionInicialDeNave, input);
-            //Debe empezar pausado
-            //GameManager.Instance.PausarJuego();
             
             GameManager.Instance.AgregarRenderizable(naveDelJuego);
             CamaraDelJuego camaraDelJuego = new CamaraDelJuego(posicionInicialDeNave, 10, -50, naveDelJuego);
@@ -111,7 +109,6 @@ namespace TGC.Group.Model.Meta
             }
             ConfigureBlinnForShip();
             naveDelJuego.GetModelo().CambiarShader(effect,"Luzbelito");
-            //naveDelJuego.GetModelo().Render();
 
             GameManager.Instance.Render();
 
@@ -123,15 +120,12 @@ namespace TGC.Group.Model.Meta
             
             BeginScene(device, glowyObjectsFrameBuffer.GetSurfaceLevel(0), depthStencil);
 
-            //naveDelJuego.GetModelo().CambiarShader(effect,"GlowyObjects");
-            //naveDelJuego.GetModelo().Render();
+
             var meshes = naveDelJuego.GetModelo().GetMeshes();
             meshes[0].Technique = "GlowyObjects";
             meshes[1].Technique = "GlowyObjects";
             meshes[2].Technique = "GlowyObjects";
-            //var mesh = naveDelJuego.GetModelo().GetMesh();
-            //mesh.Technique = "GlowyObjects";
-            //mesh.Render();
+
             meshes[0].Render();
             meshes[1].Render();
             meshes[2].Render();

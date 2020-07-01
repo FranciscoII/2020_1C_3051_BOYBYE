@@ -40,8 +40,6 @@ namespace TGC.Group.Model
         private readonly int SHADOWMAP_SIZE = 1024;
         private readonly float far_plane = 3000f;
         private readonly float near_plane = 2f;
-        //private Texture renderTarget;
-        //private Surface depthStencil;
 
         public Bloque(string mediaDir, TGCVector3 posicionInicial,String nombreMapa,List<TGCVector3> posiciones,Nave nave)
         {
@@ -110,7 +108,7 @@ namespace TGC.Group.Model
         public void Update(float elapsedTime)
         {
 
-            if (nave.GetPosicion().Z > posicionInicial.Z + 3000f) //este numero deberia corrseponder idealmente al tamaño del bloque
+            if (nave.GetPosicion().Z > posicionInicial.Z + 3000f) 
             {
                 for (int i = 0; i < listaObstaculos.Count; i++)
                     GameManager.Instance.QuitarRenderizable(listaObstaculos[i]);
@@ -123,36 +121,16 @@ namespace TGC.Group.Model
 
         public void Render()
         {
-            //RenderScene(false);
-            //D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
-            //TexturesManager.Instance.clearAll();
-
-            //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
-            //D3DDevice.Instance.Device.BeginScene();
-            //g_LightDir = g_LightLookAt - g_LightPos;
-
             g_LightPos = nave.GetPosicion();
             g_LightDir = nave.GetPosicion();
             g_LightDir.Z += 10;
             g_LightDir.Normalize();
 
-
-            // Shadow maps:
-            //D3DDevice.Instance.Device.EndScene(); // termino el thread anterior
-
-            //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
-
             //Genero el shadow map
             RenderShadowMap(); //begin y end
 
-            //D3DDevice.Instance.Device.BeginScene();
             // dibujo la escena pp dicha
-            //D3DDevice.Instance.Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.CornflowerBlue, 1.0f, 0);
             RenderScene(false);
-
-            //D3DDevice.Instance.Device.EndScene();
-            //D3DDevice.Instance.Device.Present();
-
 
         }
         public void RenderShadowMap()
