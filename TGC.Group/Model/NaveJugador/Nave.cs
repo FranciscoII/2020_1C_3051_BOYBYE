@@ -25,6 +25,7 @@ namespace TGC.Group.Model
         private readonly float velocidadRotacion;
         private bool estaRolleando;
         public bool estaVivo;
+        private bool estaEnGodMode;
         private TgcText2D textoGameOver;
         private string mediaDir;
         private float segundosDesdeUltimoRoll;
@@ -54,6 +55,7 @@ namespace TGC.Group.Model
             this.cantidadVida = 100;
             this.hud = new HUD(mediaDir);
             this.mp3Player = new TgcMp3Player();
+            this.estaEnGodMode = false;
         }
 
 
@@ -115,6 +117,10 @@ namespace TGC.Group.Model
             if (input.HayInputDeDisparo())
             {
                 Disparar();
+            }
+            if (input.HayInputDeGodMode())
+            {
+                estaEnGodMode = !estaEnGodMode;
             }
 
             CalcularColision();
@@ -349,7 +355,10 @@ namespace TGC.Group.Model
 
         public void Morir()
         {
-            estaVivo = false;
+            if (!estaEnGodMode)
+            {
+                estaVivo = false;
+            }
         }
 
         public void Chocar()
@@ -368,8 +377,12 @@ namespace TGC.Group.Model
 
         private void PerderVida(int vidaAPerder)
         {
-            int nuevaPosibleVida = cantidadVida - vidaAPerder;
-            cantidadVida = nuevaPosibleVida > 0 ? nuevaPosibleVida : 0;
+            if (!estaEnGodMode)
+            {
+                int nuevaPosibleVida = cantidadVida - vidaAPerder;
+                cantidadVida = nuevaPosibleVida > 0 ? nuevaPosibleVida : 0;
+            }
+
         }
 
         public float GetVelocidad()
