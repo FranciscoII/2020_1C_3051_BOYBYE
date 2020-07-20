@@ -131,7 +131,7 @@ namespace TGC.Group.Model
             return input.keyDown(Key.Tab);
         }
 
-        internal Boolean HayInputDeGodMode()
+        public Boolean HayInputDeGodMode()
         {
             return input.keyDown(Key.K);
         }
