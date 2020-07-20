@@ -26,7 +26,6 @@ namespace TGC.Group.Model
         private readonly float velocidadRotacion;
         private bool estaRolleando;
         public bool estaVivo;
-        private bool estaEnGodMode;
         private TgcText2D textoGameOver;
         private string mediaDir;
         private float cooldownRoll;
@@ -60,7 +59,6 @@ namespace TGC.Group.Model
             this.hud = new HUD(mediaDir);
             this.spriteGodMode = new SpriteGodMode(mediaDir);
             this.mp3Player = new TgcMp3Player();
-            this.estaEnGodMode = false;
         }
 
 
@@ -123,10 +121,6 @@ namespace TGC.Group.Model
             {
                 Disparar();
             }
-            if (input.HayInputDeGodMode())
-            {
-                estaEnGodMode = !estaEnGodMode;
-            }
 
             if (input.HayInputDeGodMode())
             {
@@ -139,7 +133,7 @@ namespace TGC.Group.Model
 
         private void ActivarGodMode()
         {
-            if(cooldownGodmode >= 1)
+            if(cooldownGodmode >= 1f)
             {
                 estaEnGodMode = !estaEnGodMode;
                 cooldownGodmode = 0;
