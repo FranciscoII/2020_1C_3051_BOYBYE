@@ -121,7 +121,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
-    <Compile Include="Model\CamaraDelJuego.cs" />
+    <Compile Include="Model\NaveJugador\CamaraJugadorFija.cs" />
     <Compile Include="Model\Clases2D\MenuGameOver.cs" />
     <Compile Include="Model\EnumPosiciones.cs" />
     <Compile Include="Model\LaserDecorativo.cs" />
@@ -146,6 +146,7 @@
     <Compile Include="Model\Mundo\EscenarioLoader.cs" />
     <Compile Include="Model\Laser.cs" />
     <Compile Include="Model\NaveGameOver.cs" />
+    <Compile Include="Model\NaveJugador\CamaraJugadorDinamica.cs" />
     <Compile Include="Model\NaveJugador\LaserDeJugador.cs" />
     <Compile Include="Model\Colisionables\LaserEnemigo.cs" />
     <Compile Include="Model\NaveJugador\ModeloCompuesto.cs" />

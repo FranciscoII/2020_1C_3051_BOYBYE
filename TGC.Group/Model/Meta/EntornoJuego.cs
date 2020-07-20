@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.DirectX.Direct3D;
+using TGC.Core.Camara;
 using TGC.Core.Direct3D;
 using TGC.Core.Mathematica;
 using TGC.Core.Shaders;
@@ -12,6 +13,7 @@ using TGC.Core.Sound;
 using TGC.Core.Text;
 using TGC.Examples.Camara;
 using TGC.Group.Model.Clases2D;
+using TGC.Group.Model.NaveJugador;
 
 namespace TGC.Group.Model.Meta
 {
@@ -22,6 +24,10 @@ namespace TGC.Group.Model.Meta
         private Nave naveDelJuego;
         private List<Light> lights;
         private TgcMp3Player tgcMp3Player;
+        private TgcCamera CamaraActual;
+        private TgcCamera CamaraSiguiente;
+        private Skybox skybox;
+        private float cooldownCambioCamara;
 
         public EntornoJuego(GameModel gameModel, string mediaDir, InputDelJugador input, string shaderDir) : base(gameModel, mediaDir, input, shaderDir)
         {
@@ -33,9 +39,13 @@ namespace TGC.Group.Model.Meta
             naveDelJuego = new Nave(mediaDir, posicionInicialDeNave, input);
             
             GameManager.Instance.AgregarRenderizable(naveDelJuego);
-            CamaraDelJuego camaraDelJuego = new CamaraDelJuego(posicionInicialDeNave, 10, -50, naveDelJuego);
-            gameModel.CambiarCamara(camaraDelJuego);
-            Skybox skybox = new Skybox(mediaDir, camaraDelJuego);
+            CamaraJugadorFija camaraFija = new CamaraJugadorFija(posicionInicialDeNave, 10, -50, naveDelJuego);
+            gameModel.CambiarCamara(camaraFija);
+            skybox = new Skybox(mediaDir, camaraFija);
+            CamaraActual = camaraFija;
+            cooldownCambioCamara = 0f;
+            CamaraJugadorDinamica camaraDinamica = new CamaraJugadorDinamica(posicionInicialDeNave, 10, -50, naveDelJuego);
+            CamaraSiguiente = camaraDinamica;
             GameManager.Instance.AgregarRenderizable(skybox);
             escenarioLoader = new EscenarioLoader(mediaDir, naveDelJuego);
             tieFighterSpawner = new TieFighterSpawner(mediaDir, naveDelJuego);
@@ -64,6 +74,7 @@ namespace TGC.Group.Model.Meta
             int index = 0;
             lights.ForEach(light => light.SetLight(index++, effect));
             effect.SetValue("lightCount", lights.Count);
+            cooldownCambioCamara += elapsedTime;
             //-------------------
 
             if (input.HayInputDePausa())
@@ -71,12 +82,31 @@ namespace TGC.Group.Model.Meta
                 
                 GameManager.Instance.ReanudarOPausarJuego();
             }
+            if (input.HayInputDeCambioDeCamara())
+            {
+                CambiarCamara();
+            }
 
             GameManager.Instance.Update(elapsedTime);
             escenarioLoader.Update(elapsedTime);
             tieFighterSpawner.Update(elapsedTime);
             if (!naveDelJuego.estaVivo)
                 CambiarEntorno(new EntornoGameOver(gameModel, mediaDir, input,shaderDir));
+        }
+
+        private void CambiarCamara()
+        {
+            if (cooldownCambioCamara > 0.5f)
+            {
+                TgcCamera CamaraViejaACambiar = CamaraActual;
+                CamaraActual = CamaraSiguiente;
+                CamaraSiguiente = CamaraViejaACambiar;
+                gameModel.CambiarCamara(CamaraActual);
+                skybox.CambiarCamara(CamaraActual);
+                cooldownCambioCamara = 0f;
+            }
+
+
         }
 
         public override void Dispose()

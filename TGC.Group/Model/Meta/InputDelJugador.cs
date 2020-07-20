@@ -126,5 +126,9 @@ namespace TGC.Group.Model
             return input.keyDown(Key.S) || input.keyDown(Key.Down);
         }
 
+        public bool HayInputDeCambioDeCamara()
+        {
+            return input.keyDown(Key.Tab);
+        }
     }
 }
