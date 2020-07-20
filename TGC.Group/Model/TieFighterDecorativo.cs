@@ -67,11 +67,8 @@ namespace TGC.Group.Model
                 return;
             }
                 
-
             var posicionDisparo = new TGCVector3(posicion);
             posicionDisparo.Z += 10;
-
-            //modeloNave.CambiarRotacion(new TGCVector3(0f, Geometry.DegreeToRadian(135f), 0f));
 
             SeguirTrayectoria(elapsedTime);
             Disparar(posicionDisparo, elapsedTime);

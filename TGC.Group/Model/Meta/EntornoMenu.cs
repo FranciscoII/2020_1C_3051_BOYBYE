@@ -34,6 +34,7 @@ namespace TGC.Group.Model.Meta
         public override void Render()
         {
             gameModel.AntesDelRender();
+            gameModel.FPSText = false;
             GameManager.Instance.Render();
             menuPrincipal.DibujarMenu();
             gameModel.DespuesDelRender();

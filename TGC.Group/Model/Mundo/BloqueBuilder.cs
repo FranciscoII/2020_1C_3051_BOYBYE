@@ -36,7 +36,6 @@ namespace TGC.Group.Model
             this.posicion = nuevaPosicion;
             List<TGCVector3> nuevasPosiciones = new List<TGCVector3>();
             float nuevoZ;
-            //posicionesTorretas.ForEach(delegate (TGCVector3 pos) {pos.Z += nuevaPosicion.Z;nuevasPosiciones.Add(new TGCVector3(pos)); });
             for(int i = 0; i < posicionesTorretas.Count; i++)
             {
                 nuevoZ = nuevaPosicion.Z + posicionOriginalTorretas[i].Z - 1000f;

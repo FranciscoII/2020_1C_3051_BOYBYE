@@ -53,17 +53,14 @@ namespace TGC.Group.Model
             positions.Add(new TGCVector3(115, -37, 1735));
 
             List<TGCVector3> positions2 = new List<TGCVector3>();
-            positions2.Add(new TGCVector3(119, -25, 400));
-            positions2.Add(new TGCVector3(90, -25, 400));
+            positions2.Add(new TGCVector3(119, -25, 550));
+            positions2.Add(new TGCVector3(90, -25, 550));
+            positions2.Add(new TGCVector3(80, -25, 850));
 
             BloqueBuilder bloque = new BloqueBuilder(mediaDir, new TGCVector3(0f, 0f, 1000f), "Xwing\\10-TgcScene.xml", positions, nave);
             BloqueBuilder bloque1 = new BloqueBuilder(mediaDir, new TGCVector3(0f, 90f, 1000f), "Xwing\\death+star-TgcScene.xml", positions2, nave);
-            //BloqueBuilder bloque2 = new BloqueBuilder(mediaDir, new TGCVector3(0f, 90f, 1000f), "Xwing\\death+star-TgcScene.xml", new List<TGCVector3>(), nave);
-            //Bloque bloque1 = new Bloque(mediaDir, new TGCVector3(0f, 100f, 3000f), "Xwing\\death+star-TgcScene.xml");
-            //Bloque bloque2 = new Bloque(mediaDir, new TGCVector3(0f, 0f, 5000f), "Xwing\\TRENCH_RUN-TgcScene.xml");
             bloques.Add(bloque);
             bloques.Add(bloque1);
-           // bloques.Add(bloque2);
         }
         private bool naveAvanzoLoSuficiente()
         {

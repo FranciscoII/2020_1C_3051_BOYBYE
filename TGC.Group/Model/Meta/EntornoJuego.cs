@@ -221,7 +221,7 @@ namespace TGC.Group.Model.Meta
             effect.EndPass();
             effect.End();
 
-            gameModel.ShowFPS();
+            //gameModel.ShowFPS();
 
             device.EndScene();
             device.Present();
