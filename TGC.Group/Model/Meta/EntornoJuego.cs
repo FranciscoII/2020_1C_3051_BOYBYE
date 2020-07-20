@@ -27,6 +27,7 @@ namespace TGC.Group.Model.Meta
         private TgcCamera CamaraActual;
         private TgcCamera CamaraSiguiente;
         private Skybox skybox;
+        private float cooldownCambioCamara;
 
         public EntornoJuego(GameModel gameModel, string mediaDir, InputDelJugador input, string shaderDir) : base(gameModel, mediaDir, input, shaderDir)
         {
@@ -42,6 +43,7 @@ namespace TGC.Group.Model.Meta
             gameModel.CambiarCamara(camaraFija);
             skybox = new Skybox(mediaDir, camaraFija);
             CamaraActual = camaraFija;
+            cooldownCambioCamara = 0f;
             CamaraJugadorDinamica camaraDinamica = new CamaraJugadorDinamica(posicionInicialDeNave, 10, -50, naveDelJuego);
             CamaraSiguiente = camaraDinamica;
             GameManager.Instance.AgregarRenderizable(skybox);
@@ -72,6 +74,7 @@ namespace TGC.Group.Model.Meta
             int index = 0;
             lights.ForEach(light => light.SetLight(index++, effect));
             effect.SetValue("lightCount", lights.Count);
+            cooldownCambioCamara += elapsedTime;
             //-------------------
 
             if (input.HayInputDePausa())
@@ -93,11 +96,16 @@ namespace TGC.Group.Model.Meta
 
         private void CambiarCamara()
         {
-            TgcCamera CamaraViejaACambiar = CamaraActual;
-            CamaraActual = CamaraSiguiente;
-            CamaraSiguiente = CamaraViejaACambiar;
-            gameModel.CambiarCamara(CamaraActual);
-            skybox.CambiarCamara(CamaraActual);
+            if (cooldownCambioCamara > 0.5f)
+            {
+                TgcCamera CamaraViejaACambiar = CamaraActual;
+                CamaraActual = CamaraSiguiente;
+                CamaraSiguiente = CamaraViejaACambiar;
+                gameModel.CambiarCamara(CamaraActual);
+                skybox.CambiarCamara(CamaraActual);
+                cooldownCambioCamara = 0f;
+            }
+
 
         }
 
