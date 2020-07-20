@@ -121,6 +121,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Game.settings</DependentUpon>
     </Compile>
+    <Compile Include="Model\Clases2D\SpriteGodMode.cs" />
     <Compile Include="Model\NaveJugador\CamaraJugadorFija.cs" />
     <Compile Include="Model\Clases2D\MenuGameOver.cs" />
     <Compile Include="Model\EnumPosiciones.cs" />

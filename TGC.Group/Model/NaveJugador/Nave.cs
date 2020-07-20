@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Timers;
 using TGC.Core.Sound;
+using TGC.Group.Model.Clases2D;
 
 namespace TGC.Group.Model
 {
@@ -27,11 +28,12 @@ namespace TGC.Group.Model
         public bool estaVivo;
         private TgcText2D textoGameOver;
         private string mediaDir;
-        private float segundosDesdeUltimoRoll;
-        private float segundosDesdeUltimoDisparo;
-        private float segundosDesdeUltimoSonido;
+        private float cooldownRoll;
+        private float cooldownDisparo;
+        private float cooldownGodmode;
         private int cantidadVida;
         private HUD hud;
+        private SpriteGodMode spriteGodMode;
         private TgcMp3Player mp3Player;
 
         public Nave(string mediaDir, TGCVector3 posicionInicial, InputDelJugador input)
@@ -48,11 +50,12 @@ namespace TGC.Group.Model
             this.velocidadRotacion = 0.008f;
             this.estaRolleando = false;
             this.estaVivo = true;
-            this.segundosDesdeUltimoRoll = 100;
-            this.segundosDesdeUltimoDisparo = 100;
-            this.segundosDesdeUltimoSonido = 100;
+            this.cooldownRoll = 100;
+            this.cooldownDisparo = 100;
+            this.cooldownGodmode = 100;
             this.cantidadVida = 100;
             this.hud = new HUD(mediaDir);
+            this.spriteGodMode = new SpriteGodMode(mediaDir);
             this.mp3Player = new TgcMp3Player();
         }
 
@@ -69,9 +72,9 @@ namespace TGC.Group.Model
         {
             if (GameManager.Instance.estaPausado)
                 return;
-            segundosDesdeUltimoRoll += elapsedTime;
-            segundosDesdeUltimoDisparo += elapsedTime;
-            segundosDesdeUltimoSonido += elapsedTime;
+            cooldownRoll += elapsedTime;
+            cooldownDisparo += elapsedTime;
+            cooldownGodmode += elapsedTime;
 
             if (cantidadVida <= 0)
             {
@@ -117,8 +120,23 @@ namespace TGC.Group.Model
                 Disparar();
             }
 
+            if (input.HayInputDeGodMode())
+            {
+                ActivarGodMode();
+            }
+
             CalcularColision();
             MoverseEnDireccion(input.DireccionDelInput(), elapsedTime);
+        }
+
+        private void ActivarGodMode()
+        {
+            if(cooldownGodmode >= 1)
+            {
+                estaEnGodMode = !estaEnGodMode;
+                cooldownGodmode = 0;
+            }
+            
         }
 
         private void CalcularColision()
@@ -143,16 +161,12 @@ namespace TGC.Group.Model
             {
                 textoGameOver.render();
             }
-            //new TgcText2D().drawText("Posicion:\n" +posicion.ToString(), 5, 60, Color.White);
-            //new TgcText2D().drawText("Posicion del SOL:\n" + GameManager.Instance.PosicionSol.ToString(), 5, 160, Color.White);
+            if (estaEnGodMode)
+            {
+                spriteGodMode.Render();
+            }
 
-            /*
-            new TgcText2D().drawText("Velocidad de la nave:\n" + velocidadActual.ToString(), 5, 20, Color.White);
-            new TgcText2D().drawText("Rotacion de la nave:\n" + rotacionActual.ToString(), 5, 130, Color.White);
-            */
-            
             hud.Render(cantidadVida, CantidadCombustibleParaRollear());
-
         }
 
         public void Dispose()
@@ -289,18 +303,18 @@ namespace TGC.Group.Model
             if (SePuedeRollear())
             {
                 estaRolleando = true;
-                segundosDesdeUltimoRoll = 0;
+                cooldownRoll = 0;
             }
         }
 
         private int CantidadCombustibleParaRollear() //Ponele
         {
-            return Convert.ToInt32(Math.Min(segundosDesdeUltimoRoll * 20, 100));
+            return Convert.ToInt32(Math.Min(cooldownRoll * 20, 100));
         }
 
         private Boolean SePuedeRollear()
         {
-            return segundosDesdeUltimoRoll > 5;
+            return cooldownRoll > 5;
         }
 
         private bool TerminoElRoll()
@@ -323,7 +337,7 @@ namespace TGC.Group.Model
 
         private Boolean SePuedeDisparar()
         {
-            return segundosDesdeUltimoDisparo > 0.4f && estaVivo;
+            return cooldownDisparo > 0.4f && estaVivo;
         }
         private void Disparar()
         {
@@ -332,7 +346,7 @@ namespace TGC.Group.Model
                 TGCVector3 posicionLaser = new TGCVector3(GetPosicion());
                 posicionLaser.Z += 10f;
                 GameManager.Instance.AgregarRenderizable(new LaserDeJugador(mediaDir,mediaDir + "Xwing\\laserBueno-TgcScene.xml", posicionLaser, new TGCVector3(0, 0, 1)));
-                segundosDesdeUltimoDisparo = 0;
+                cooldownDisparo = 0;
                 HacerSonidoLaser();
             }
         }
