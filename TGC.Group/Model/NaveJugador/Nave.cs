@@ -32,6 +32,7 @@ namespace TGC.Group.Model
         private float cooldownDisparo;
         private float cooldownGodmode;
         private int cantidadVida;
+        private bool estaEnGodMode;
         private HUD hud;
         private SpriteGodMode spriteGodMode;
         private TgcMp3Player mp3Player;
@@ -54,6 +55,7 @@ namespace TGC.Group.Model
             this.cooldownDisparo = 100;
             this.cooldownGodmode = 100;
             this.cantidadVida = 100;
+            this.estaEnGodMode = false;
             this.hud = new HUD(mediaDir);
             this.spriteGodMode = new SpriteGodMode(mediaDir);
             this.mp3Player = new TgcMp3Player();
