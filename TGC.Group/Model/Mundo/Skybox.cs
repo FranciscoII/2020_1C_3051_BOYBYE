@@ -55,6 +55,11 @@ namespace TGC.Group.Model
 			skyBox.Center = camara.Position;
 		}
 
+		public void CambiarCamara(TgcCamera nuevaCamara)
+		{
+			camara = nuevaCamara;
+		}
+
 		public void Render()
 		{
 			skyBox.Render();
