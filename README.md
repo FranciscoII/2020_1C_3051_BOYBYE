@@ -19,8 +19,9 @@ Trabajo práctico de la asignatura electiva [Técnicas de Gráficos por Computad
 
 
 ## ScreenShot ##
-![screenshot1](https://github.com/tgc-utn/tgc-group/blob/master/TGC.Group/Media/nave_StarFox.jpg)
-
+![img1](https://i.ibb.co/YDsw4XY/img1.png)
+![im2](https://i.ibb.co/7krvFHj/im2.png)
+![img3](https://i.ibb.co/bLSvfRj/img3.png)
 
 ## Game Play ##
 [![Watch the video](https://i.imgur.com/scIknK3.png)](https://drive.google.com/file/d/1JVzA_O-QP08Lrd7qd4Tzk9UuKAq2OHJF/view?usp=sharing)
