@@ -28,7 +28,7 @@ namespace TGC.Group.Model
         private Nave nave;
         private List<ObstaculoMapa> listaObstaculos;
         private Effect effect;
-
+        private string modeloTorretas;
         private TGCVector3 g_LightDir; // direccion de la luz actual
         private TGCVector3 g_LightPos; // posicion de la luz actual (la que estoy analizando)
         private TGCVector3 g_LightLookAt; // posicion de la luz actual (la que estoy analizando)
@@ -41,7 +41,7 @@ namespace TGC.Group.Model
         private readonly float far_plane = 3000f;
         private readonly float near_plane = 2f;
 
-        public Bloque(string mediaDir, TGCVector3 posicionInicial,String nombreMapa,List<TGCVector3> posiciones,Nave nave)
+        public Bloque(String mediaDir, TGCVector3 posicionInicial,String nombreMapa,List<TGCVector3> posiciones,Nave nave, String modeloTorretas)
         {
             this.mediaDir = mediaDir;
             this.posicionInicial = posicionInicial;
@@ -49,6 +49,7 @@ namespace TGC.Group.Model
             this.posicionesTorretas = posiciones;
             this.nave = nave;
             this.listaObstaculos = new List<ObstaculoMapa>();
+            this.modeloTorretas = modeloTorretas;
         }
         public void Init()
         {
@@ -91,7 +92,7 @@ namespace TGC.Group.Model
         {
             this.posicionesTorretas.
                 ForEach(delegate (TGCVector3 posicion) {
-                    Torreta torreta = new Torreta(mediaDir,posicion,nave);
+                    Torreta torreta = new Torreta(mediaDir,posicion,nave, modeloTorretas);
                     GameManager.Instance.AgregarRenderizable(torreta); 
                 });
         }

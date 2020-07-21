@@ -11,12 +11,13 @@ namespace TGC.Group.Model
     class BloqueBuilder
     {
         private String mediaDir;
+        private String modeloTorretas;
         private TGCVector3 posicion;
         private String nombreMapa;
         private List<TGCVector3> posicionOriginalTorretas;
         private List<TGCVector3> posicionesTorretas;
         private Nave nave;
-        public BloqueBuilder(string mediaDir, TGCVector3 posicionInicial, String nombreMapa, List<TGCVector3> posiciones, Nave nave)
+        public BloqueBuilder(String mediaDir, TGCVector3 posicionInicial, String nombreMapa, List<TGCVector3> posiciones, Nave nave, String modeloTorretas)
         {
             this.mediaDir = mediaDir;
             this.posicion = posicionInicial;
@@ -24,11 +25,12 @@ namespace TGC.Group.Model
             this.posicionesTorretas = posiciones;
             this.posicionOriginalTorretas = posiciones;
             this.nave = nave;
+            this.modeloTorretas = modeloTorretas;
         }
 
         public Bloque generarBloque()
         {
-            return new Bloque(mediaDir, posicion, nombreMapa, posicionesTorretas, nave);
+            return new Bloque(mediaDir,posicion, nombreMapa, posicionesTorretas, nave,modeloTorretas);
         }
 
         public void setPosicion(TGCVector3 nuevaPosicion)

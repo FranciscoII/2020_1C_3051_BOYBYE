@@ -23,17 +23,19 @@ namespace TGC.Group.Model
         private TGCMatrix baseQuaternionTranslation;
         private float tiempo = 0f;
         private TGCQuaternion quaternionAuxiliar;
+        private String modeloTorreta;
 
-        public Torreta(string mediaDir, TGCVector3 posicionInicial,Nave nave) : base(nave)
+        public Torreta(string mediaDir,TGCVector3 posicionInicial,Nave nave, String texturaTorreta) : base(nave)
         {
             this.mediaDir = mediaDir;
+            this.modeloTorreta = texturaTorreta;
             this.posicionInicial = posicionInicial;
 
         }
         public override void Init()
         {
             TgcSceneLoader loader = new TgcSceneLoader();
-            TgcScene scene2 = loader.loadSceneFromFile(mediaDir + "Xwing\\Turbolaser-TgcScene.xml");
+            TgcScene scene2 = loader.loadSceneFromFile(modeloTorreta);
 
             //Solo nos interesa el primer modelo de esta escena (tiene solo uno)
             mainMesh = scene2.Meshes[0];

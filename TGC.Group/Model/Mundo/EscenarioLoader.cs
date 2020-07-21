@@ -57,8 +57,8 @@ namespace TGC.Group.Model
             positions2.Add(new TGCVector3(90, -25, 550));
             positions2.Add(new TGCVector3(80, -25, 850));
 
-            BloqueBuilder bloque = new BloqueBuilder(mediaDir, new TGCVector3(0f, 0f, 1000f), "Xwing\\10-TgcScene.xml", positions, nave);
-            BloqueBuilder bloque1 = new BloqueBuilder(mediaDir, new TGCVector3(0f, 90f, 1000f), "Xwing\\death+star-TgcScene.xml", positions2, nave);
+            BloqueBuilder bloque = new BloqueBuilder(mediaDir, new TGCVector3(0f, 0f, 1000f), "Xwing\\10-TgcScene.xml", positions, nave,mediaDir+ "Xwing\\TorretaBlanca-TgcScene.xml");
+            BloqueBuilder bloque1 = new BloqueBuilder(mediaDir, new TGCVector3(0f, 90f, 1000f), "Xwing\\test_ds-TgcScene.xml", positions2, nave,mediaDir + "Xwing\\TorretaNegra-TgcScene.xml");
             bloques.Add(bloque);
             bloques.Add(bloque1);
         }
