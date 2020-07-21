@@ -131,7 +131,7 @@ namespace TGC.Group.Model.Meta
             //ACA RENDEREAR 
             if (GameManager.Instance.estaPausado)
             {
-                string textoControles = "Controles:\nWASD: Moverse\nQ: Rollear\nE: Voltearse\nShift: Acelerar\nCtrl: Desacelerar\nEnter: Pausar/Despausar";
+                string textoControles = "Controles:\nWASD: Moverse\nQ: Rollear\nE: Voltearse\nShift: Acelerar\nCtrl: Desacelerar\nEnter: Pausar/Despausar\nTab: Cambiar camara";
                 TgcText2D textoDrawer = new TgcText2D();
                 textoDrawer.Text = textoControles;
                 textoDrawer.changeFont(new System.Drawing.Font("Calibri", 0.009765625f * D3DDevice.Instance.Width));

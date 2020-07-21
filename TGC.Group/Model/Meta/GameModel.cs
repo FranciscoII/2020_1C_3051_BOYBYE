@@ -36,6 +36,7 @@ namespace TGC.Group.Model
             EntornoActual = new EntornoMenu(this,MediaDir,input,ShadersDir);
             EntornoActual.Init();
             GameManager.Instance.SetearDevice(DirectSound.DsDevice);
+            AxisLinesEnable = false;
         }
 
         public override void Update()
