@@ -23,4 +23,4 @@ Trabajo práctico de la asignatura electiva [Técnicas de Gráficos por Computad
 
 
 ## Game Play ##
-[![Watch the video](https://img.youtube.com/vi/qESIu8ozanU/0.jpg)](https://www.youtube.com/playlist?list=PLRM4L32DjvnazuMl8wZlbpEYL5Qh63ulG)
+[![Watch the video](https://i.imgur.com/mO1SjbE.png)](https://drive.google.com/file/d/1JVzA_O-QP08Lrd7qd4Tzk9UuKAq2OHJF/view?usp=sharing)
