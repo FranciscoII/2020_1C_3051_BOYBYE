@@ -14,14 +14,17 @@ Trabajo práctico de la asignatura electiva [Técnicas de Gráficos por Computad
 * [TGC.Core](https://www.nuget.org/packages/TGC.Core/) (se baja automáticamente al hacer build por primera vez)
 
 ## Integrantes ##
- - Cortez Francisco
- - Floxo Lodeiro Tomas 
 
+ Cortez Francisco | Floxo Lodeiro Tomas
+ ------------ | -------------
+ ![Fran](https://cdn.discordapp.com/attachments/484906097954652194/735512308419395694/Fran.png) | ![Tom](https://media.discordapp.net/attachments/484906097954652194/735273559727013888/unknown.png)
 
-## ScreenShot ##
+## Screenshots ##
+
 ![img1](https://i.ibb.co/YDsw4XY/img1.png)
 ![im2](https://i.ibb.co/7krvFHj/im2.png)
 ![img3](https://i.ibb.co/bLSvfRj/img3.png)
 
-## Game Play ##
+## Gameplay ##
+
 [![Watch the video](https://i.imgur.com/scIknK3.png)](https://drive.google.com/file/d/1JVzA_O-QP08Lrd7qd4Tzk9UuKAq2OHJF/view?usp=sharing)
